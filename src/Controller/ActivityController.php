@@ -114,4 +114,18 @@ class ActivityController extends AbstractController
             'activities'=>$activities
         ]);
     }
+
+    #[Route('/research',name:"research")]
+    public function search(ActivityRepository $repo, MuscleRepository $repo2, DayRepository $repo3, Request $request) {
+        $activities = $repo->findAll();
+        $muscles = $repo2->findAll();
+        $days = $repo3->findAll();
+        $key=$request->request->get('keyWord');
+        return $this->render('activity/research.html.twig', [
+            'key'=>$key,
+            'activities' => $activities,
+            'muscles' => $muscles,
+            'days' => $days
+        ]);
+    }
 }

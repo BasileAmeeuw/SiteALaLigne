@@ -16,8 +16,9 @@
                         <div class="d-flex w-100 justify-content-between">
                         <div><h5 class="mb-1">{{ activity.title }}</h5>
                         <p class="mb-1">{{activity.description | slice(0,tailleMax)}}{% if activity.description|length > tailleMax %}...{% endif %}</p>
+                        {% if activity.muscle == null %}{% else %}
                         <p><small>Muscle : {{activity.muscle.nameOfMuscle}}</small></p>
-                        <p><small><img src={{activity.image}} alt="" style="width:50%; height:50%"></small></p></div>
+                        <p><small><img src={{activity.image}} alt="" style="width:50%; height:50%"></small></p>{% endif %}</div>
                         </div>
                     
                 {% endfor %}</a>
@@ -56,11 +57,12 @@
                                 {{day.date|date('d/m/Y')}} à {{day.date|date('H:i')}}
                             </td></tr>
                             <tr class="table-light"><td class="text-center">
-                                <h6>{{day.activity.title}}</h6>
+                                {% if day.activity == null  %}<h6>Pas d'exercice pour cette période</h6>
+                                {% else %}<h6>{{day.activity.title}}</h6>
                                 <span>{% if day.activity.duration <60 %} {{day.activity.duration}} minutes
                                     {% else %} 1 heure et {{day.activity.duration -60}} minutes{% endif %}</span>
                                 <p><small><img src="{{day.activity.image}}" alt="" style="width:30%; height:30%"></small></p>    
-                            </td></tr>
+                            {% endif %}</td></tr>
                         {% endfor %}
                     </thead>
                 </table>     
