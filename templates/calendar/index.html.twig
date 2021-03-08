@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+
+Calendrier
+
+{% endblock %}
+{% block body %}
+<br>
+<h1> Calendrier pour devenir bien musclé </h1>
+<br>
+<table class="table table-hover">
+  <thead>
+  {% set slice_d = 0 %}
+  {% set slice_u = 5 %}
+  {% set nbDaysDevidedBy5 = (((days|length)/5)|round) %}
+    {% for s in range(0,nbDaysDevidedBy5) %}
+      <tr class="table-primary">
+
+      {% for day in days|slice(slice_d,5) %}
+              <td class="text-center"><a href="{{ path('agenda_detail', {'id':day.id}) }}"> {{day.date|date('d/m/Y')}} à {{day.date | date('H:i')}} </a> </td>
+      {% endfor %}
+      </tr>
+      <tr class="table-light">
+      {% for day in days|slice(slice_d,5) %}
+      {% if day.activity == null  %}
+      <td  class="text-center"><h4>Pas d'exercice pour cette période</h4><div class="" role="group" aria-label="..."><a href="{{ path('agenda_modification',{'id':day.id}) }}"> <button type="button" class="btn btn-outline-info">Editer</button>
+      </a>
+      <a href="{{ path('agenda_delete',{'id':day.id}) }}"><button type="button" class="btn btn-danger">Supprimer</button></a></div></td>
+      
+      {% else %}
+      <td class="text-center"><a href="{{ path('activity_detail', {'id':day.activity.id}) }}" class="list-group-item list-group-item-action flex-column align-items-start hover-shadow" id="{{day.activity.title}}">
+           <h5>{{day.activity.title}}</h5>
+           {% if day.activity.duration <60 %} {{day.activity.duration}} minutes
+                {% else %} 1 heure et {{day.activity.duration -60}} minutes{% endif %}
+          </br>
+          </br>
+            <img src={{day.activity.image}} style="width:70%">
+          <div class="" role="group" aria-label="..."><a href="{{ path('agenda_modification',{'id':day.id}) }}"> <button type="button" class="btn btn-outline-info">Editer</button>
+      </a>
+      <a href="{{ path('agenda_delete',{'id':day.id}) }}"><button type="button" class="btn btn-danger">Supprimer</button></a></div></td>
+      
+      {% endif %}
+      {% endfor %}
+      </tr>
+      
+      {% set slice_d = slice_d + 5 %}
+    {% endfor %}
+    
+  </tbody>
+</table>
+{% endblock %}

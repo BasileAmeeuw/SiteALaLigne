@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <p><br></p>
+    <h1>Bienvenue sur le site pour garder la forme !</h1>
+    <p><br></p>
+
+
+    <div class="list-group ">
+    {% set tailleMax = 150 %}
+        {% for activity in activities %}
+            <a href="{{ path('activity_detail', {'id':activity.id}) }}" class="list-group-item list-group-item-action flex-column align-items-start hover-shadow " id="{{activity.title}}">
+                <div class="d-flex w-100 justify-content-between">
+                <div><h5 class="mb-1">{{ activity.title }}</h5>
+                <p class="mb-1">{{activity.description | slice(0,tailleMax)}}{% if activity.description|length > tailleMax %}...{% endif %}</p>
+                <p><small>Muscle : {% if activity.muscle == null %} Il n'y a pas de précisions sur les muscles qui travaillent pour cette activité</small></p>
+                <p><small><img src={{activity.image}} alt="" style="width:20em; height:20em"></small></p></div>
+                {% else %}{{activity.muscle.nameOfMuscle}}</small></p>
+                <p><small><img src={{activity.muscle.image}} alt="" style="width:20em; height:20em"></small></p></div>{% endif %}
+                
+                <img class="block-center" src="{{activity.image}}" alt="" style="width:70%; height:70%">
+                <div class="btn-group-vertical" role="group" aria-label="..."><a href="{{ path('activity_modification',{'id':activity.id}) }}"> <button type="button" class="btn btn-outline-info">Editer</button>
+                </a>
+                <a href="{{ path('activity_delete',{'id':activity.id}) }}"><button type="button" class="btn btn-danger">Supprimer</button></a></div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+

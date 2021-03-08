@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="card mb-3">
+        <h3 class="card-header">{{activity.title}}</h3>
+        <div class="card-body d-flex w-100 justify-content-between">
+            <div><h5 class="card-title">muscle:</h5>
+            <h2 class="d-flex justify-content-center">{% if (activity.muscle) == null %}Il n'y a pas de précisions sur les muscles qui travaillent pour cette activité</div>
+            {% else %}<a href="{{ path('muscle_detail', {'id':activity.muscle.id}) }}" class="hover-dark" id="{{activity.muscle.nameOfMuscle}}">{{activity.muscle.nameOfMuscle}}</a></h2>
+            </div><img src={{activity.muscle.image}} alt="" style="width:20%; height:20%">{% endif %}
+            
+            
+        </div>
+        <img src={{activity.image}} class="container-fluid center-block" style="width:50%; height:50%" alt="" >
+        <div class="card-body">
+            <p class="card-text lead">{{activity.description}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><b>Durée:</b> {% if activity.duration <60 %} {{activity.duration}} minutes
+                                        {% else %} 1 heure et {{activity.duration -60}} minutes{% endif %}</li>
+            <li class="list-group-item"><b>Difficulté:</b> <span style="font-size:2em; color:#FFAB00">
+            {% if activity.difficult == 0 %}☆☆☆☆☆ <span style="font-size:0.5em; color:black">(Très facile)
+            {% elseif  activity.difficult == 1 %} ★☆☆☆☆ <span style="font-size:0.5em; color:black">(Facile)
+            {% elseif  activity.difficult == 2 %} ★★☆☆☆ <span style="font-size:0.5em; color:black">(Normal)
+            {% elseif  activity.difficult == 3 %} ★★★☆☆ <span style="font-size:0.5em; color:black">(Avancé)
+            {% elseif  activity.difficult == 4 %} ★★★★☆ <span style="font-size:0.5em; color:black">(Difficile)
+            {% elseif  activity.difficult == 5 %} ★★★★★ <span style="font-size:0.5em; color:black">(Expert)
+            {% endif %}</li>
+            </span> 
+            
+            </span> 
+            
+        </div>
+            <li class="list-group-item"><b>Matériel nécessaire:</b> {{activity.material}}</li>
+        </ul>
+        <div class="card-body row justify-content-between">
+            <a href="{{ path('activity_author', {'id':activity.id}) }}" class="card-link fa fa-chevron-left">{{activity.author}}</a>
+            <p class="card-link fa fa-chevron-right">créé le {{activity.createdAt | date('d/m/Y')}} à {{activity.createdAt | date('H:i')}}
+            {% if activity.modifiedAt is defined %}<br>EDIT : {{activity.modifiedAt | date('d/m/Y')}} à {{activity.modifiedAt | date('H:i')}} {% endif %}</p>
+        </div>
+        {% if activity.days|length > 0 %}
+        <div class="card-header">
+        {% if activity.days|length == 1 %}{% for dayday in activity.days %}Vous avez choisi cette activité physique pour le 
+        <a href="{{ path('agenda_detail', {'id':dayday.id}) }}">{{dayday.date|date('d/m/Y')}} à {{dayday.date | date('H:i')}}</a>{% endfor %}
+        {% else %}Vous avez choisi cette activite pour les dates suivantes :<br>
+            <table class="table table-hover">
+                <thead>
+                    <tr class="table-primary">
+                        {% for dayday in activity.days %}
+                            <td class="text-center"><a href="{{ path('agenda_detail', {'id':dayday.id}) }}"> {{dayday.date|date('d/m/Y')}} à {{dayday.date | date('H:i')}} </a> </td>
+                        {% endfor %}
+                    </tr>
+                </thead>
+            </table>
+        {% endif %}
+        {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

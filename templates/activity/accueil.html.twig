@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{% set tailleMax = 40 %}
+    <div class="container">
+        <div class="row">
+            <div class="col text-center bg-success">
+                <br>
+                <h3>Liste des activité</h3>
+                <br>
+                <button type="button" class="btn btn-outline-info" ><a href=" {{ path('activity_creation') }}">Créer une nouvelle activité</a></button>
+                <br>
+                <a href="{{ path('activity') }}" class="list-group-item list-group-item-action flex-column align-items-start hover-shadow" id="/activity">
+                {% for activity in activities|slice(0,5) %}
+                    
+                        <div class="d-flex w-100 justify-content-between">
+                        <div><h5 class="mb-1">{{ activity.title }}</h5>
+                        <p class="mb-1">{{activity.description | slice(0,tailleMax)}}{% if activity.description|length > tailleMax %}...{% endif %}</p>
+                        <p><small>Muscle : {{activity.muscle.nameOfMuscle}}</small></p>
+                        <p><small><img src={{activity.image}} alt="" style="width:50%; height:50%"></small></p></div>
+                        </div>
+                    
+                {% endfor %}</a>
+            </div>
+
+            <div class="col text-center bg-warning">
+                <br>
+                <h3>Liste des muscles</h3>
+                <br>
+                <button type="button" class="btn btn-outline-success" ><a href=" {{ path('muscle_creation') }}">Créer une nouvelle partie du corps</a></button>
+                <br>
+                <a href="{{ path('muscle') }}" class="list-group-item list-group-item-action flex-column align-items-start hover-shadow" id="/muscle">
+                {% for muscle in muscles|slice(0,5) %}
+                    
+                        <div class="">
+                        <div><h5 class="mb-1">{{ muscle.nameOfMuscle }}</h5>
+                        <p class="mb-1">{{muscle.ExtraExpl | slice(0,tailleMax)}}{% if muscle.ExtraExpl|length > tailleMax %}...{% endif %}</p>
+                        <p><small>Nombre d'activities : {{muscle.activities|length}}
+                        </small></p></div>
+                        <p><img src="{{muscle.image}}" alt="" style="width:30%; height:30%"></p>
+                        </div>
+                    
+                {% endfor %}
+                </a>
+            </div>
+            <div class="col text-center bg-info">
+                <br>
+                <h3>Calendrier avec les activités</h3>
+                <button type="button" class="btn btn-outline-warning" ><a href=" {{ path('agenda_creation') }}">Créer un nouveau jour d'exercice</a></button>
+                <br>
+                <a href="{{ path('agenda') }}" class="list-group-item list-group-item-action flex-column align-items-start hover-shadow" id="/agenda">
+                <table class="table table-hover">
+                    <thead>  
+                        {% for day in days|slice(0,5) %}
+                            <tr class="table-primary"><td class="text-center">
+                                {{day.date|date('d/m/Y')}} à {{day.date|date('H:i')}}
+                            </td></tr>
+                            <tr class="table-light"><td class="text-center">
+                                <h6>{{day.activity.title}}</h6>
+                                <span>{% if day.activity.duration <60 %} {{day.activity.duration}} minutes
+                                    {% else %} 1 heure et {{day.activity.duration -60}} minutes{% endif %}</span>
+                                <p><small><img src="{{day.activity.image}}" alt="" style="width:30%; height:30%"></small></p>    
+                            </td></tr>
+                        {% endfor %}
+                    </thead>
+                </table>     
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

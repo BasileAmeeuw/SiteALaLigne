@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MuscleController!{% endblock %}
+
+{% block body %}
+    <div class="list-group">
+    {% set n=0 %}
+    {% set tailleMax = 150 %}
+        {% for muscle in muscles %}
+            {% if n is even %}<div class="d-flex justify-content-between">{% endif %}
+
+            <a href="{{ path('muscle_detail', {'id':muscle.id}) }}" class="list-group-item list-group-item-action flex-column align-items-start" id="{{muscle.nameOfMuscle}}">
+                <div class="d-flex w-100 justify-content-between">
+                <div><h5 class="mb-1">{{ muscle.nameOfMuscle }}</h5>
+                <p class="mb-1">{{muscle.ExtraExpl | slice(0,tailleMax)}}{% if muscle.ExtraExpl|length > tailleMax %}...{% endif %}</p>
+                <p><small>Nombre d'activities : {{muscle.activities|length}}
+                </small></p></div>
+                <img src="{{muscle.image}}" alt="" style="width:50%; height:50%">
+                </div>
+            </a><div class="btn-group-vertical" role="group" aria-label="..."><a href="{{ path('muscle_modification',{'id':muscle.id}) }}"> <button type="button" class="btn btn-outline-info">Editer</button>
+                </a>
+                <a href="{{ path('muscle_delete',{'id':muscle.id}) }}"><button type="button" class="btn btn-danger">Supprimer</button></a></div>
+            {% if n is not even %}</div>
+            {% elseif n+1 == muscles|length %}</div>{% endif %}
+            {% set n=n+1 %}
+            
+        {% endfor %}
+    </div>
+{% endblock %}

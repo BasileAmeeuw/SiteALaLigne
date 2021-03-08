@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+
+<br><h1>
+{% if new %}
+    Création d'un nouveau espace dans l'agenda
+{% else %}
+    Modification du {{jour|date('d/m')}} ({{jour|date('H:i')}})
+{% endif %}</h1><br>
+
+    {{ form(formDay) }}
+{% endblock %}

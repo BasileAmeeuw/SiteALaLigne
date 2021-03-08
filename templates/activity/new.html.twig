@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<br><h1>
+{% if new %}
+    Création d'une nouvelle activité
+{% else %}
+    Modification de l'activité "{{nom}}"
+{% endif %}</h1><br>
+    {{ form_start(formActivity)}}
+
+
+
+    {{ form_end(formActivity)}}
+{% endblock %}

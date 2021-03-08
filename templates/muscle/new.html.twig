@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<br><h1>
+{% if new %}
+    Création d'une nouvelle partie du corps
+{% else %}
+    Modification du muscle "{{nameMuscle}}"
+{% endif %}</h1><br>
+
+    {{ form(formMuscle) }}
+{% endblock %}
