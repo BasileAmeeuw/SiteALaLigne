@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\MuscleRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\MuscleRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=MuscleRepository::class)
@@ -21,21 +23,30 @@ class Muscle
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Type("string")
+     * @Groups("getActivityApi")
+     * @Groups("getMuscleApi")
      */
     private $nameOfMuscle;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("getActivityApi")
+     * @Groups("getMuscleApi")
      */
     private $image;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups("getActivityApi")
+     * @Groups("getMuscleApi")
      */
     private $ExtraExpl;
 
     /**
      * @ORM\OneToMany(targetEntity=Activity::class, mappedBy="muscle", cascade={"persist", "remove"})
+     * @Groups("getMuscleApi")
      */
     private $activities;
 

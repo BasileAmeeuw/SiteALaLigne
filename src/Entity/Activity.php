@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\ActivityRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Muscle;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -23,17 +23,26 @@ class Activity
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Type("string")
+     * @Groups("getActivityApi")
+     * @Groups("getMuscleApi")
      */
     private $title;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Assert\Type("text")
+     * @Groups("getActivityApi")
+     * @Groups("getMuscleApi")
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Url
+     * @Groups("getActivityApi")
+     * @Groups("getMuscleApi")
      */
     private $image;
 
@@ -41,6 +50,8 @@ class Activity
      * @ORM\Column(type="smallint", nullable=true)
      * @Assert\GreaterThanOrEqual(0)
      * @Assert\LessThanOrEqual(120)
+     * @Groups("getActivityApi")
+     * @Groups("getMuscleApi")
      */
     private $duration;
 
@@ -48,36 +59,45 @@ class Activity
      * @ORM\Column(type="smallint", nullable=true)
      * @Assert\LessThanOrEqual(5)
      * @Assert\GreaterThanOrEqual(0)
+     * @Groups("getActivityApi")
+     * @Groups("getMuscleApi")
      */
     private $difficult;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("getActivityApi")
      */
     private $author;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups("getActivityApi")
+     * @Groups("getMuscleApi")
      */
     private $material;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("getActivityApi")
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups("getActivityApi")
      */
     private $modifiedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=Muscle::class, inversedBy="activities", cascade={"persist", "remove"})
+     * @Groups("getActivityApi")
      */
     private $muscle;
 
     /**
      * @ORM\OneToMany(targetEntity=Day::class, mappedBy="activity", cascade={"persist", "remove"})
+     * @Groups("getActivityApi")
      */
     private $days;
 

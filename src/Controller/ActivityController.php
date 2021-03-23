@@ -24,7 +24,7 @@ class ActivityController extends AbstractController
 
     }
 
-    #[Route('/', name: 'choix')]
+    #[Route('/', name: 'home')]
     public function accueil(ActivityRepository $repo, MuscleRepository $repo2, DayRepository $repo3): Response
     {
         $activities = $repo->findAll();

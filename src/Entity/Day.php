@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\DayRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=DayRepository::class)
@@ -19,6 +20,8 @@ class Day
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank
+     * @Groups("getActivityApi")
      */
     private $date;
 
