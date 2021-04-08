@@ -7,7 +7,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=DayRepository::class)
+ * @ORM\Entity(repositoryClass=App\Repository\DayRepository::class)
  */
 class Day
 {
@@ -16,18 +16,20 @@ class Day
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
+    #[Groups(["getActivityApi","getDayApi"])]
     private $id;
 
     /**
      * @ORM\Column(type="datetime")
      * @Assert\NotBlank
-     * @Groups("getActivityApi")
      */
+    #[Groups(["getActivityApi","getMuscleApi","getDayApi"])]
     private $date;
 
     /**
      * @ORM\ManyToOne(targetEntity=Activity::class, inversedBy="days", cascade={"persist", "remove"})
      */
+    #[Groups(["getDayApi"])]
     private $activity;
 
     public function getId(): ?int

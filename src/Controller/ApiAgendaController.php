@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Muscle;
-use App\Repository\MuscleRepository;
+use App\Entity\Day;
+use App\Repository\DayRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,8 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Serializer\Exception\NotEncodableValueException;
 
-
-class ApiMuscleController extends AbstractController
+class ApiAgendaController extends AbstractController
 {
     private $entityManager;
 
@@ -25,29 +24,29 @@ class ApiMuscleController extends AbstractController
 
     }
     
-    #[Route('/api/muscle', name: 'api_muscle_index', methods:["GET"])]
-    public function index(MuscleRepository $muscleRepository): Response
+    #[Route('/api/agenda', name: 'api_agenda_index', methods:["GET"])]
+    public function index(DayRepository $dayRepository): Response
     {
-        return $this->json($muscleRepository->findAll(), 200, [], ['groups' => 'getMuscleApi']);
+        return $this->json($dayRepository->findAll(), 200, [], ['groups' => 'getDayApi']);
     }
 
-    #[Route('/api/muscle', name: 'api_muscle_create', methods:["POST"])]
+    #[Route('/api/agenda', name: 'api_agenda_create', methods:["POST"])]
     public function create(Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
     {
         $jsonRecu=$request->getContent();
         $en=$this->entityManager;
         try {
-            $muscle=$serializer->deserialize($jsonRecu, \App\Entity\Muscle::class, 'json');
+            $day=$serializer->deserialize($jsonRecu, \App\Entity\Day::class, 'json');
 
-            $errors=$validator->validate($muscle);
+            $errors=$validator->validate($day);
 
             if (count($errors)>0){
                 return $this->json($errors,400);
             }
-            $en->persist($muscle);
+            $en->persist($day);
             $en->flush();
 
-            return $this->json($muscle, 201, [], ['groups' => 'getMuscleApi']);
+            return $this->json($day, 201, [], ['groups' => 'getDayApi']);
         } catch(NotEncodableValueException $e){
             return $this->json([
                 'status' => 400,
@@ -57,16 +56,16 @@ class ApiMuscleController extends AbstractController
         }
     }
 
-    #[Route('/api/muscle/{id}',name:'api_muscle_delete', methods:["DELETE"])]
-    public function delete(Muscle $muscle) {
+    #[Route('/api/agenda/{id}',name:'api_agenda_delete', methods:["DELETE"])]
+    public function delete(Day $day) {
         try{
             $manager=$this->entityManager;
-            $manager->remove($muscle);
+            $manager->remove($day);
             $manager->flush();
 
             return $this->json([
                 'status'=>200,
-                'muscle_delete'=>$muscle->getNameOfMuscle()
+                'day_delete'=>$day->getDate()
             ]);
         } catch (NotFoundHttpException $e){
             return $this->json([
@@ -77,37 +76,32 @@ class ApiMuscleController extends AbstractController
     }
 
 
-    #[Route('/api/muscle/{id}', name: 'api_muscle_edit', methods:["PUT"])]
-    public function edit(Request $request, Muscle $muscle, SerializerInterface $serializer, ValidatorInterface $validator)
+    #[Route('/api/agenda/{id}', name: 'api_agenda_edit', methods:["PUT"])]
+    public function edit(Request $request, Day $day, SerializerInterface $serializer, ValidatorInterface $validator)
     {
         $jsonRecu=$request->getContent();
         $en=$this->entityManager;
         
         try {
-            $muscleJSON=$serializer->deserialize($jsonRecu, \App\Entity\Muscle::class, 'json');
+            $dayJSON=$serializer->deserialize($jsonRecu, \App\Entity\Day::class, 'json');
 
-            $errors=$validator->validate($muscleJSON);
+            $errors=$validator->validate($dayJSON);
 
             if (count($errors)>0){
                 return $this->json($errors,400);
             }
 
-            if ($muscleJSON->getNameOfMuscle() != null){
-                $muscle->setNameOfMuscle($muscleJSON->getNameOfMuscle());
+            if ($dayJSON->getDate() != null){
+                $day->setDate($dayJSON->getDate());
             } 
-            if ($muscleJSON->getExtraExpl() != null){
-                $muscle->setExtraExpl($muscleJSON->getExtraExpl());
+            if ($dayJSON->getActivity() != null){
+                $day->setActivity($dayJSON->getActivity());
             } 
-            if ($muscleJSON->getImage() != null){
-                $muscle->setImage($muscleJSON->getImage());
-            } 
-            foreach ($muscleJSON->getActivities() as $Act){
-                $muscle->addActivity($Act);
-            }
-            $en->persist($muscle);
+            
+            $en->persist($day);
             $en->flush();
 
-            return $this->json($muscle, 201, [], ['groups' => 'getMuscleApi']);
+            return $this->json($day, 201, [], ['groups' => 'getDayApi']);
         } catch(NotEncodableValueException $e){
             return $this->json([
                 'status' => 400,

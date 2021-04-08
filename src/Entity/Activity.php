@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=ActivityRepository::class)
+ * @ORM\Entity(repositoryClass=App\Repository\ActivityRepository::class)
  */
 class Activity
 {
@@ -19,86 +19,80 @@ class Activity
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
+    #[Groups(["getActivityApi","getMuscleApi","getDayApi"])]
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Type("string")
-     * @Groups("getActivityApi")
-     * @Groups("getMuscleApi")
      */
+    #[Groups(["getActivityApi","getMuscleApi","getDayApi"])]
     private $title;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Assert\Type("text")
-     * @Groups("getActivityApi")
-     * @Groups("getMuscleApi")
      */
+    #[Groups(["getActivityApi","getMuscleApi","getDayApi"])]
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Url
-     * @Groups("getActivityApi")
-     * @Groups("getMuscleApi")
      */
+    #[Groups(["getActivityApi","getMuscleApi","getDayApi"])]
     private $image;
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
      * @Assert\GreaterThanOrEqual(0)
      * @Assert\LessThanOrEqual(120)
-     * @Groups("getActivityApi")
-     * @Groups("getMuscleApi")
      */
+    #[Groups(["getActivityApi","getMuscleApi","getDayApi"])]
     private $duration;
 
     /**
      * @ORM\Column(type="smallint", nullable=true)
      * @Assert\LessThanOrEqual(5)
      * @Assert\GreaterThanOrEqual(0)
-     * @Groups("getActivityApi")
-     * @Groups("getMuscleApi")
      */
+    #[Groups(["getActivityApi","getMuscleApi"])]
     private $difficult;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups("getActivityApi")
      */
+    #[Groups(["getActivityApi"])]
     private $author;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups("getActivityApi")
-     * @Groups("getMuscleApi")
      */
+    #[Groups(["getActivityApi","getMuscleApi"])]
     private $material;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups("getActivityApi")
      */
+    #[Groups(["getActivityApi"])]
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups("getActivityApi")
      */
+    #[Groups(["getActivityApi"])]
     private $modifiedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=Muscle::class, inversedBy="activities", cascade={"persist", "remove"})
-     * @Groups("getActivityApi")
      */
+    #[Groups(["getActivityApi"])]
     private $muscle;
 
     /**
      * @ORM\OneToMany(targetEntity=Day::class, mappedBy="activity", cascade={"persist", "remove"})
-     * @Groups("getActivityApi")
      */
+    #[Groups(["getActivityApi","getMuscleApi"])]
     private $days;
 
 
@@ -107,6 +101,12 @@ class Activity
         $this->days = new ArrayCollection();
     }
 
+    public function setId(int $ID): self
+    {
+        $this->id = $ID;
+
+        return $this;
+    }
     public function getId(): ?int
     {
         return $this->id;

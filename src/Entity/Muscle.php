@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=MuscleRepository::class)
+ * @ORM\Entity(repositoryClass=App\Repository\MuscleRepository::class)
  */
 class Muscle
 {
@@ -19,35 +19,33 @@ class Muscle
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
+    #[Groups(["getActivityApi","getMuscleApi"])]
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * @Assert\Type("string")
-     * @Groups("getActivityApi")
-     * @Groups("getMuscleApi")
      */
+    #[Groups(["getActivityApi","getMuscleApi"])]
     private $nameOfMuscle;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups("getActivityApi")
-     * @Groups("getMuscleApi")
      */
+    #[Groups(["getActivityApi","getMuscleApi"])]
     private $image;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups("getActivityApi")
-     * @Groups("getMuscleApi")
      */
+    #[Groups(["getActivityApi","getMuscleApi"])]
     private $ExtraExpl;
 
     /**
      * @ORM\OneToMany(targetEntity=Activity::class, mappedBy="muscle", cascade={"persist", "remove"})
-     * @Groups("getMuscleApi")
      */
+    #[Groups(["getMuscleApi"])]
     private $activities;
 
     public function __construct()

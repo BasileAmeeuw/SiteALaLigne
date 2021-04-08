@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Commande de l'api !{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+        </head>
+        {% block body %}
+            <h1>Voici les différente commande de l'api !</h1>
+            {# api_activity#}
+            <div class="card text-white bg-info mb-3" style="max-width: 20rem;">
+                <div class="card-header"><a href="{{path("api_activity_index")}}">GET /api/activity</a></div>
+                <div class="card-body">
+                    <h4 class="card-title">Request = GET (for activities)</h4>
+                    <p class="card-text">On récupère toutes les activités</p>
+                </div>
+            </div>
+            <div class="card text-white bg-info mb-3" style="max-width: 20rem;">
+                <div class="card-header">POST /api/activity
+                {# <a href="{{path("api_activity_index")}}">GET /api/activity</a> #}
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Request = POST (for activities)</h4>
+                    <p class="card-text">On peut ajouter une activité</p>
+                </div>
+            </div>
+            <div class="card text-white bg-info mb-3" style="max-width: 20rem;">
+                <div class="card-header">DELETE /api/activity/{id}
+                {# <a href="{{path("api_activity_index")}}">GET /api/activity</a> #}
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Request = DELETE (for activities)</h4>
+                    <p class="card-text">On peut supprimer une activité en le ciblant grace à l'id</p>
+                </div>
+            </div>
+            <div class="card text-white bg-info mb-3" style="max-width: 20rem;">
+                <div class="card-header">PUT /api/activity/{id}
+                {# <a href="{{path("api_activity_index")}}">GET /api/activity</a> #}
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Request = PUT (for activities)</h4>
+                    <p class="card-text">On peut modifier une activité en le ciblant grace à l'id</p>
+                </div>
+            </div>
+
+
+            {# api_muscle#}
+            <div class="card text-white bg-info mb-3" style="max-width: 20rem;">
+                <div class="card-header"><a href="{{path("api_muscle_index")}}">GET /api/muscle</a></div>
+                <div class="card-body">
+                    <h4 class="card-title">Request = GET (for muscles)</h4>
+                    <p class="card-text">On récupère toutes les muscles</p>
+                </div>
+            </div>
+            <div class="card text-white bg-info mb-3" style="max-width: 20rem;">
+                <div class="card-header">POST /api/muscle
+                {# <a href="{{path("api_activity_index")}}">GET /api/activity</a> #}
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Request = POST (for muscles)</h4>
+                    <p class="card-text">On peut ajouter un muscle</p>
+                </div>
+            </div>
+            <div class="card text-white bg-info mb-3" style="max-width: 20rem;">
+                <div class="card-header">DELETE /api/muscle/{id}
+                {# <a href="{{path("api_activity_index")}}">GET /api/activity</a> #}
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Request = DELETE (for muscles)</h4>
+                    <p class="card-text">On peut supprimer un muscle en le ciblant grace à l'id</p>
+                </div>
+            </div>
+            <div class="card text-white bg-info mb-3" style="max-width: 20rem;">
+                <div class="card-header">PUT /api/muscle/{id}
+                {# <a href="{{path("api_activity_index")}}">GET /api/activity</a> #}
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Request = PUT (for muscles)</h4>
+                    <p class="card-text">On peut modifier un muscle en le ciblant grace à l'id</p>
+                </div>
+            </div>
+
+            {# api_agenda#}
+            <div class="card text-white bg-info mb-3" style="max-width: 20rem;">
+                <div class="card-header"><a href="{{path("api_agenda_index")}}">GET /api/agenda</a></div>
+                <div class="card-body">
+                    <h4 class="card-title">Request = GET (for days)</h4>
+                    <p class="card-text">On récupère toutes les jours</p>
+                </div>
+            </div>
+            <div class="card text-white bg-info mb-3" style="max-width: 20rem;">
+                <div class="card-header">POST /api/agenda
+                {# <a href="{{path("api_activity_index")}}">GET /api/activity</a> #}
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Request = POST (for days)</h4>
+                    <p class="card-text">On peut ajouter un jour
+                    Attention format="Y-m-d H-m-s"</p>
+                </div>
+            </div>
+            <div class="card text-white bg-info mb-3" style="max-width: 20rem;">
+                <div class="card-header">DELETE /api/agenda/{id}
+                {# <a href="{{path("api_activity_index")}}">GET /api/activity</a> #}
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Request = DELETE (for days)</h4>
+                    <p class="card-text">On peut supprimer un jour en le ciblant grace à l'id</p>
+                </div>
+            </div>
+            <div class="card text-white bg-info mb-3" style="max-width: 20rem;">
+                <div class="card-header">PUT /api/agenda/{id}
+                {# <a href="{{path("api_activity_index")}}">GET /api/activity</a> #}
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Request = PUT (for days)</h4>
+                    <p class="card-text">On peut modifier un jour en le ciblant grace à l'id</p>
+                </div>
+            </div>
+            
+        {% endblock %}
+
+</html>

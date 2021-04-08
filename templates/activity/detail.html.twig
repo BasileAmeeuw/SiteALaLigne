@@ -19,7 +19,8 @@
             <li class="list-group-item"><b>Durée:</b> {% if activity.duration <60 %} {{activity.duration}} minutes
                                         {% else %} 1 heure et {{activity.duration -60}} minutes{% endif %}</li>
             <li class="list-group-item"><b>Difficulté:</b> <span style="font-size:2em; color:#FFAB00">
-            {% if activity.difficult == 0 %}☆☆☆☆☆ <span style="font-size:0.5em; color:black">(Très facile)
+            {% if activity.difficult == null %}<span style="font-size:0.5em; color:black">Pas précisé
+            {% elseif activity.difficult == 0 %}☆☆☆☆☆ <span style="font-size:0.5em; color:black">(Très facile)
             {% elseif  activity.difficult == 1 %} ★☆☆☆☆ <span style="font-size:0.5em; color:black">(Facile)
             {% elseif  activity.difficult == 2 %} ★★☆☆☆ <span style="font-size:0.5em; color:black">(Normal)
             {% elseif  activity.difficult == 3 %} ★★★☆☆ <span style="font-size:0.5em; color:black">(Avancé)

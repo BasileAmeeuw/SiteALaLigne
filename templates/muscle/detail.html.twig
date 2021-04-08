@@ -15,6 +15,7 @@
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <div><a href="{{ path('activity_detail', {'id':activity.id}) }}" class="list-group-item list-group-item-action  align-items-start hover-shadow" id="{{activity.title}}">{{activity.title}}</a></div>
                 <div style="font-size:2em; color:#FFAB00">
+                {% if activity.difficult == null %}Pas précisé
                 {% if activity.difficult == 0 %}☆☆☆☆☆
                 {% elseif  activity.difficult == 1 %} ★☆☆☆☆
                 {% elseif  activity.difficult == 2 %} ★★☆☆☆
