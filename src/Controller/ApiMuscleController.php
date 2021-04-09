@@ -92,11 +92,6 @@ class ApiMuscleController extends AbstractController
         try {
             $muscleJSON=$serializer->deserialize($jsonRecu, \App\Entity\Muscle::class, 'json');
 
-            $errors=$validator->validate($muscleJSON);
-
-            if (count($errors)>0){
-                return $this->json($errors,400);
-            }
 
             if ($muscleJSON->getNameOfMuscle() != null){
                 $muscle->setNameOfMuscle($muscleJSON->getNameOfMuscle());

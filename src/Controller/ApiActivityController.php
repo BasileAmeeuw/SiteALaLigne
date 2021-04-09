@@ -83,7 +83,7 @@ class ApiActivityController extends AbstractController
 
             return $this->json([
                 'status'=>200,
-                'muscle_delete'=>$activity->getTitle()
+                'activite_delete'=>$activity->getTitle()
             ]);
         } catch (NotFoundHttpException $e){
             return $this->json([
@@ -101,12 +101,6 @@ class ApiActivityController extends AbstractController
         
         try {
             $activityJSON=$serializer->deserialize($jsonRecu, \App\Entity\Activity::class, 'json');
-
-            $errors=$validator->validate($activityJSON);
-
-            if (count($errors)>0){
-                return $this->json($errors,400);
-            }
 
             if ($activityJSON->getTitle() != null){
                 $activity->setTitle($activityJSON->getTitle());

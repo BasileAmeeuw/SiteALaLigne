@@ -2,8 +2,10 @@
 
 {% block body %}
 {% set tailleMax = 150 %}
+{% set nothing = 0 %}
     {% for activity in activities %}
         {% if key in activity.title %}
+        {% set nothing = nothing + 1 %}
         Activité:
         <h1><u><a href="{{ path('activity_detail', {'id':activity.id}) }}">{{activity.title}}</a></u></h1>
         <h6>{{activity.description | slice(0,tailleMax)}}{% if activity.description|length > tailleMax %}...{% endif %}</h6>
@@ -12,6 +14,7 @@
 
     {% for muscle in muscles %}
         {% if key in muscle.nameOfMuscle %}
+        {% set nothing = nothing + 1 %}
         Muscle:
         <h1><u><a href="{{ path('muscle_detail', {'id':muscle.id}) }}">{{muscle.nameOfMuscle}}</a></u></h1>
         <h6>{{muscle.ExtraExpl | slice(0,tailleMax)}}{% if muscle.ExtraExpl|length > tailleMax %}...{% endif %}</h6>
@@ -20,6 +23,7 @@
 
     {% for activity in activities %}
         {% if key in activity.description %}
+        {% set nothing = nothing + 1 %}
         Activité:
         <h1><u><a href="{{ path('activity_detail', {'id':activity.id}) }}">{{activity.title}}</a></u></h1>
         <h6>{{activity.description | slice(0,tailleMax)}}{% if activity.description|length > tailleMax %}...{% endif %}</h6>
@@ -28,6 +32,7 @@
 
     {% for muscle in muscles %}
         {% if key in muscle.ExtraExpl %}
+        {% set nothing = nothing + 1 %}
         Muscle:
         <h1><u><a href="{{ path('muscle_detail', {'id':muscle.id}) }}">{{muscle.nameOfMuscle}}</a></u></h1>
         <h6>{{muscle.ExtraExpl | slice(0,tailleMax)}}{% if muscle.ExtraExpl|length > tailleMax %}...{% endif %}</h6>
@@ -36,6 +41,7 @@
 
     {% for activity in activities %}
         {% if key in activity.duration or (key > activity.duration - 5 and key < activity.duration+5) %}
+        {% set nothing = nothing + 1 %}
         Activité:
         <h1><u><a href="{{ path('activity_detail', {'id':activity.id}) }}">{{activity.title}}</a></u></h1>
         <h6>{{activity.description | slice(0,tailleMax)}}{% if activity.description|length > tailleMax %}...{% endif %}</h6>
@@ -46,12 +52,15 @@
 
     {% for muscle in muscles %}
         {% if key == muscle.activities|length %}
+        {% set nothing = nothing + 1 %}
         Muscle:
         <h1><u><a href="{{ path('muscle_detail', {'id':muscle.id}) }}">{{muscle.nameOfMuscle}}</a></u></h1>
         <h6>{{muscle.ExtraExpl | slice(0,tailleMax)}}{% if muscle.ExtraExpl|length > tailleMax %}...{% endif %}</h6>
         Nombre d'activités associées: {{key}}<br>
         {% endif %}
     {% endfor %}
-
+    {% if nothing == 0 %}
+        <h1>Pas de résultat trouvé !!!!</h1>
+    {% endif %}
 
 {% endblock %}

@@ -92,12 +92,6 @@ class ApiAgendaController extends AbstractController
         try {
             $dayJSON=$serializer->deserialize($jsonRecu, \App\Entity\Day::class, 'json');
 
-            $errors=$validator->validate($dayJSON);
-
-            if (count($errors)>0){
-                return $this->json($errors,400);
-            }
-
             if ($dayJSON->getDate() != null){
                 $day->setDate($dayJSON->getDate());
             } 
