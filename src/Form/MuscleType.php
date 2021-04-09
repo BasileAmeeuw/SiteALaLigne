@@ -13,9 +13,9 @@ class MuscleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nameOfMuscle')
-            ->add('image')
-            ->add('ExtraExpl')
+            ->add('nameOfMuscle', null, ['attr'=>['placeholder'=>"le nom du muscle/de l'endroit du corps que vous voulez ajouter OBLIGATOIRE"]])
+            ->add('image', null, ['attr'=>['placeholder'=>"une url vers la photo web OPTIONEL"]])
+            ->add('ExtraExpl', null, ['attr'=>['placeholder'=>"un texte qui reprend des explications complémentaires OPTIONEL"]])
             ->add('save', SubmitType::class)
         ;
     }

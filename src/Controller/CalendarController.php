@@ -37,7 +37,7 @@ class CalendarController extends AbstractController
     public function newDay(Day $day = null, Request $request){
         $new=false;
         if (!$day){
-            $new;
+            $new=true;
             $day=new Day();
         }
 
