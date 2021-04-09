@@ -30,6 +30,13 @@ class ApiAgendaController extends AbstractController
         return $this->json($dayRepository->findAll(), 200, [], ['groups' => 'getDayApi']);
     }
 
+    #[Route('/api/agenda/{id}', name: 'api_agenda_id', methods:["GET"])]
+    public function search(Day $day): Response
+    {
+        return $this->json($day, 200, [], ['groups' => 'getDayApi']);
+    }
+
+
     #[Route('/api/agenda', name: 'api_agenda_create', methods:["POST"])]
     public function create(Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
     {

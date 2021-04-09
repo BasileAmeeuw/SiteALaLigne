@@ -31,6 +31,12 @@ class ApiMuscleController extends AbstractController
         return $this->json($muscleRepository->findAll(), 200, [], ['groups' => 'getMuscleApi']);
     }
 
+    #[Route('/api/muscle/{id}', name: 'api_muscle_id', methods:["GET"])]
+    public function search(Muscle $muscle): Response
+    {
+        return $this->json($muscle, 200, [], ['groups' => 'getMuscleApi']);
+    }
+
     #[Route('/api/muscle', name: 'api_muscle_create', methods:["POST"])]
     public function create(Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
     {

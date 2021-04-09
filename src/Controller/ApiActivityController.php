@@ -38,6 +38,12 @@ class ApiActivityController extends AbstractController
         return $this->json($activityRepository->findAll(), 200, [], ['groups' => 'getActivityApi']);
     }
 
+    #[Route('/api/activity/{id}', name: 'api_activity_id', methods:["GET"])]
+    public function search(Activity $activity): Response
+    {
+        return $this->json($activity, 200, [], ['groups' => 'getActivityApi']);
+    }
+
     #[Route('/api/activity', name: 'api_activity_create', methods:["POST"])]
     public function create(Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
     {
