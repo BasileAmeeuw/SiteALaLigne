@@ -1,14 +1,19 @@
 <div class="container">
   <div class="rox">
     <div class="col-xs-12">
-      <h2>Les activités</h2>
-      <ul class="list-group">
-        <app-activities [activite]="activiteOne"></app-activities>
-        <app-activities [activite]="activiteTwo"></app-activities>
-        <app-activities [activite]="activiteThree"></app-activities>
-      </ul>
-      <button class="btn btn-succes" [disabled]="!isAuth" (click)="onChangerMuscle()">Changer de muscle</button>
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <ul class="nav navbar-nav">
+            <li routerLinkActive="active"><a routerLink="auth">Authentification</a></li>
+            <li routerLinkActive="active"><a routerLink="activity">Activés</a></li>
+            <li routerLinkActive="active"><a routerLink="muscle">Liste muscles</a></li>
+            <li routerLinkActive="active"><a routerLink="agenda">Agenda</a></li>
+          </ul>
+        </div>
+      </nav>
+      
+      <router-outlet></router-outlet>
+
     </div>
   </div>
 </div>
-

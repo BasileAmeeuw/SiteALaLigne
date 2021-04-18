@@ -1,0 +1,10 @@
+<h1>Liste des activités</h1>
+<div *ngFor="let activity of activities | async">
+
+    <h4>{{ activity.title }}</h4>
+    <img src={{activity.image}} />
+
+    <button class="btn btn-info" (click)="getActi(activity.id)" >Voir le détail suite</button>
+    
+
+</div>

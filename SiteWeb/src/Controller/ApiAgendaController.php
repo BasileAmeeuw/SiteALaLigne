@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Day;
 use App\Repository\DayRepository;
+use App\Repository\ActivityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,12 +39,26 @@ class ApiAgendaController extends AbstractController
 
 
     #[Route('/api/agenda', name: 'api_agenda_create', methods:["POST"])]
-    public function create(Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
+    public function create(ActivityRepository $activityRepository, Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
     {
         $jsonRecu=$request->getContent();
         $en=$this->entityManager;
         try {
             $day=$serializer->deserialize($jsonRecu, \App\Entity\Day::class, 'json');
+            $activity=$day->getActivity();
+            if ($activity != null) {
+                $activityId=$activity->getId();
+                $existingActivity=$activityRepository->findOneBy(["id"=>$activityId]);
+                if ($existingActivity != null){
+                    $day->setActivity($existingActivity);
+                } else{
+                    return $this->json([
+                        'status' => 401,
+                        "message d'erreur" => "Vous n'avez pas rentré une activité existante dans la DB"
+                    ]);
+                }
+            }
+
 
             $errors=$validator->validate($day);
 
@@ -84,7 +99,7 @@ class ApiAgendaController extends AbstractController
 
 
     #[Route('/api/agenda/{id}', name: 'api_agenda_edit', methods:["PUT"])]
-    public function edit(Request $request, Day $day, SerializerInterface $serializer, ValidatorInterface $validator)
+    public function edit(ActivityRepository $activityRepository, Request $request, Day $day, SerializerInterface $serializer, ValidatorInterface $validator)
     {
         $jsonRecu=$request->getContent();
         $en=$this->entityManager;
@@ -96,7 +111,17 @@ class ApiAgendaController extends AbstractController
                 $day->setDate($dayJSON->getDate());
             } 
             if ($dayJSON->getActivity() != null){
-                $day->setActivity($dayJSON->getActivity());
+                $activity=$day->getActivity();
+                $activityId=$activity->getId();
+                $existingActivity=$activityRepository->findOneBy(["id"=>$activityId]);
+                if ($existingActivity != null){
+                    $day->setActivity($existingActivity);
+                } else{
+                    return $this->json([
+                        'status' => 401,
+                        "message d'erreur" => "Vous n'avez pas rentré une activité existante dans la DB"
+                    ]);
+                }
             } 
             
             $en->persist($day);

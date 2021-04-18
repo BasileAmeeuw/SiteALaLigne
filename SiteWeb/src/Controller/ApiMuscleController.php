@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Muscle;
 use App\Repository\MuscleRepository;
+use App\Repository\ActivityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -84,7 +85,7 @@ class ApiMuscleController extends AbstractController
 
 
     #[Route('/api/muscle/{id}', name: 'api_muscle_edit', methods:["PUT"])]
-    public function edit(Request $request, Muscle $muscle, SerializerInterface $serializer, ValidatorInterface $validator)
+    public function edit(ActivityRepository $activityRepository,Request $request, Muscle $muscle, SerializerInterface $serializer, ValidatorInterface $validator)
     {
         $jsonRecu=$request->getContent();
         $en=$this->entityManager;
@@ -103,7 +104,16 @@ class ApiMuscleController extends AbstractController
                 $muscle->setImage($muscleJSON->getImage());
             } 
             foreach ($muscleJSON->getActivities() as $Act){
-                $muscle->addActivity($Act);
+                $activityId=$Act->getId();
+                $existingActivity=$activityRepository->findOneBy(["id"=>$activityId]);
+                if ($existingActivity != null) {
+                    $muscle->addActivity($existingActivity);
+                } else {
+                    return $this->json([
+                        'status' => 401,
+                        "message d'erreur" => "Vous n'avez pas rentré une activité existante dans la DB (" + $Act->getTitle() + ")"
+                    ]);
+                }
             }
             $en->persist($muscle);
             $en->flush();

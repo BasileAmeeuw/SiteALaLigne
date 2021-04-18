@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Activity;
+use App\Repository\DayRepository;
+use App\Repository\MuscleRepository;
 use App\Repository\ActivityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,8 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Serializer\Exception\NotEncodableValueException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Serializer\Exception\NotEncodableValueException;
 
 
 class ApiActivityController extends AbstractController
@@ -35,7 +37,7 @@ class ApiActivityController extends AbstractController
     #[Route('/api/activity', name: 'api_activity_index', methods:["GET"])]
     public function index(ActivityRepository $activityRepository): Response
     {
-        return $this->json($activityRepository->findAll(), 200, [], ['groups' => 'getActivityApi']);
+        return $this->json($activityRepository->findAll(), 200, [], ['groups' => 'getActivityApi','Access-Control-Allow-Origin' => '*']);
     }
 
     #[Route('/api/activity/{id}', name: 'api_activity_id', methods:["GET"])]
@@ -45,13 +47,27 @@ class ApiActivityController extends AbstractController
     }
 
     #[Route('/api/activity', name: 'api_activity_create', methods:["POST"])]
-    public function create(Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
+    public function create(MuscleRepository $muscleRepository,Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
     {
         $jsonRecu=$request->getContent();
         $en=$this->entityManager;
         
         try {
             $activity=$serializer->deserialize($jsonRecu, \App\Entity\Activity::class, 'json');
+            $muscle=$activity->getMuscle();
+            if ($muscle != null) {
+                $muscleId=$muscle->getDifficult();
+                $existingMuscle=$muscleRepository->findOneBy(["id"=>$muscleId]);
+                if ($existingMuscle != null){
+                    $activity->setMuscle($existingMuscle);
+                } else{
+                    return $this->json([
+                        'status' => 401,
+                        "message d'erreur" => "Vous n'avez pas rentré un muscle existant dans la DB"
+                    ]);
+                }
+            }
+            
 
             $errors=$validator->validate($activity);
 
@@ -94,7 +110,7 @@ class ApiActivityController extends AbstractController
     }
 
     #[Route('/api/activity/{id}', name: 'api_activity_edit', methods:["PUT"])]
-    public function edit(Request $request, Activity $activity, SerializerInterface $serializer, ValidatorInterface $validator)
+    public function edit(DayRepository $dayRepository, MuscleRepository $muscleRepository, Request $request, Activity $activity, SerializerInterface $serializer, ValidatorInterface $validator)
     {
         $jsonRecu=$request->getContent();
         $en=$this->entityManager;
@@ -124,10 +140,27 @@ class ApiActivityController extends AbstractController
                 $activity->setMaterial($activityJSON->getMaterial());
             } 
             if ($activityJSON->getMuscle() != null){
-                $activity->setMuscle($activityJSON->getMuscle());
+                $muscle=$activityJSON->getMuscle();
+                $muscleId=$muscle->getDifficult();
+                $existingMuscle=$muscleRepository->findOneBy(["id"=>$muscleId]);
+                if ($existingMuscle != null){
+                    $activity->setMuscle($existingMuscle);
+                } else{
+                    return $this->json([
+                        'status' => 401,
+                        "message d'erreur" => "Vous n'avez pas rentré un muscle existant dans la DB"
+                    ]);
+                }
+                
             } 
             foreach ($activityJSON->getDays() as $Day){
-                $activity->addDay($Day);
+                $dayId=$Day->getId();
+                $existingDay=$dayRepository->findOneBy(["id"=>$dayId]);
+                if ($existingDay != null) {
+                    $activity->addDay($existingDay);
+                } else {
+                    $activity->addDay($Day);
+                }
             }
             $activity->setModifiedAt(new \DateTime());
             $en->persist($activity);
