@@ -62,4 +62,37 @@ export class RestService {
   getMuscle(id:string): Observable<any> {
     return this.http.get<Muscle>(backend + "muscle/" + id);
   }
+
+  addActivity(): Observable<any> {
+    return ;
+  }
+
+  addMuscle(): Observable<any> {
+    return ;
+  }
+
+  addDay(): Observable<any> {
+    return ;
+  }
+
+  optionRequete = {
+    headers: new HttpHeaders({ 
+      'Access-Control-Allow-Origin':'*',
+      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, DELETE'
+    })
+  };
+
+  deleteActivity(id:string): Observable<any> {
+    return this.http.delete<string>(backend + "activity/" + id, this.optionRequete);
+  }
+
+  deleteMuscle(id:string):Observable<any> {
+    return this.http.delete(backend + "muscle/" + id);
+
+  }
+
+  deleteDay(id:string):Observable<any> {
+    return this.http.delete<Object>(backend + "agenda/" + id);
+
+  }
 }

@@ -1,6 +1,7 @@
 <h1>Calendrier</h1>
 <div *ngFor="let day of days">
 
-    Le {{ day.date | date:'d MMMM YYYY'}} à {{ day.date | date:'h'}}h {{ day.date | date:'s'}}
-
+    Le {{ day.date | date:'d MMMM YYYY'}} à {{ day.date | date:'h'}}h{{ day.date | date:'mm'}}
+    <h2 *ngIf="day.activity!=null">{{day.activity.title}}</h2>
+    <h2 *ngIf="day.activity==null">Pas d'activité pour ce jour</h2>
 </div>

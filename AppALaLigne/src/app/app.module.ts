@@ -1,10 +1,9 @@
-import { AuthService } from './services/auth.services';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import {RestService } from './services/rest.service'
 import { LOCALE_ID } from '@angular/core'
 import { AppComponent } from './app.component';
-import { AuthComponent } from './auth/auth.component';
 import { ActivityViewComponent } from './activity-view/activity-view.component';
 import { MuscleViewComponent } from './muscle-view/muscle-view.component';
 import { AgendaViewComponent } from './agenda-view/agenda-view.component';
@@ -18,8 +17,7 @@ registerLocaleData(localeFr, 'fr');
 
 const appRoutes: Routes = [
   { path: 'activity', component: ActivityViewComponent },
-  { path: 'auth', component: AuthComponent },
-  { path: '', component: AuthComponent },
+  { path: '', component: ActivityViewComponent },
   { path: 'muscle', component: MuscleViewComponent },
   { path: 'agenda', component: AgendaViewComponent },
   { path: 'activityDetail/:id', component: ActivityDetailViewComponent },
@@ -29,7 +27,6 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    AuthComponent,
     ActivityViewComponent,
     MuscleViewComponent,
     AgendaViewComponent,
@@ -42,9 +39,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes)
 
   ],
-  providers: [
-              {provide: LOCALE_ID, useValue: 'fr-FR' },
-              AuthService],
+  providers: [RestService,
+              {provide: LOCALE_ID, useValue: 'fr-FR' },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

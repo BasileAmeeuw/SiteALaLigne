@@ -26,8 +26,24 @@ export class ActivityViewComponent implements OnInit {
     );
   }
 
-  detailActivity( id:number){
+  detailActivity( id:string){
     this.router.navigateByUrl('/activityDetail/' + id);
+  }
+
+  addActivity() {
+
+  }
+
+  editActivity(id:string){
+
+  }
+
+  deleteActivity(id:string){
+    this.rest.deleteActivity(id).subscribe(
+      (response) => {
+        console.log(response)
+      }
+    );
   }
 
 

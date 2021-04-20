@@ -1,11 +1,14 @@
 <h1>Liste des activités</h1>
+<button class="btn " (click)="addActivity()" >Ajouter activity</button>
+<h2></h2>
 <div *ngFor="let activity of activities">
 
     <h4>{{ activity.title }}</h4>
-    <h2>{{activity.muscle.nameOfMuscle}}</h2>
+    <h2 *ngIf="activity.muscle!=null">{{activity.muscle.nameOfMuscle}}</h2>
     <img src={{activity.image}} />
 
     <button class="btn btn-info" (click)="detailActivity(activity.id)" >Voir le détail suite</button>
-    
+    <button class="btn btn-success" (click)="editActivity(activity.id)" >Editer</button>
+    <button class="btn btn-warning" (click)="deleteActivity(activity.id)" >Supprimer</button>
 
 </div>
