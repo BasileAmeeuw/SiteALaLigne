@@ -1,8 +1,6 @@
-import { HttpClient} from '@angular/common/http';
+import { RestService, Activity } from '../services/rest.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-
 
 @Component({
   selector: 'app-activity-detail-view',
@@ -11,21 +9,20 @@ import { Observable } from 'rxjs';
 })
 export class ActivityDetailViewComponent implements OnInit {
 
-  activity:Object;
-  constructor(private route: ActivatedRoute, private http:HttpClient) { }
+  activity:Activity;
+  constructor(public rest: RestService, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
-    
     const id = this.route.snapshot.params['id'];
-    this.activity=this.http.get("http://127.0.0.1:8000/api/activity/" + id)
-    this.http.get("http://127.0.0.1:8000/api/activity/" + id).subscribe(data => 
-    {this.activity=data; console.log(data);
-      })
-    // this.http.get<Object>("http://127.0.0.1:8000/api/activity/" + id).subscribe((obj)=>{this.activity=obj});
-    // console.log( this.http.get<Object>("http://127.0.0.1:8000/api/activity/" + id).map((obj)=>{this.activity=obj}))
-    console.log(this.activity)
+    this.getActivity(id);
+  }
 
-
+  getActivity(id:string) {
+    this.rest.getActivity(id).subscribe(
+      (response) => {
+        console.log(response);
+        this.activity = response}
+    );
   }
 
 }

@@ -1,7 +1,6 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import 'rxjs/add/operator/map';
+import { RestService, Activity } from '../services/rest.service';
 
 @Component({
   selector: 'app-activity-view',
@@ -11,18 +10,23 @@ import 'rxjs/add/operator/map';
 export class ActivityViewComponent implements OnInit {
 
 
-  activities: Object;
-  JsonActivity:string;
-  activity:Object;
+  activities: Activity[] = [];
 
-  constructor(private http: HttpClient, private router:Router) {}
+  constructor(public rest: RestService, private router:Router) {}
 
   ngOnInit(){
-    this.activities = this.http.get( "http://127.0.0.1:8000/api/activity");
-    console.log(this.activities);
+    this.getActivities();
   }
 
-  getActi( id:number){
+  getActivities(){
+    this.rest.getActivities().subscribe(
+      (response) => {
+        console.log(response);
+        this.activities = response}
+    );
+  }
+
+  detailActivity( id:number){
     this.router.navigateByUrl('/activityDetail/' + id);
   }
 

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { RestService, Day } from '../services/rest.service';
+
 
 @Component({
   selector: 'app-agenda-view',
@@ -8,11 +10,19 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 })
 export class AgendaViewComponent implements OnInit {
 
-  days: any;
-  constructor(private http: HttpClient) { }
+  days: Day[] = [];
+  constructor(public rest: RestService, private router:Router) { }
 
-  ngOnInit(): void {
-    this.days = this.http.get( "http://127.0.0.1:8000/api/agenda");
+  ngOnInit(){
+    this.getDays();
+  }
+
+  getDays(){
+    this.rest.getDays().subscribe(
+      (response) => {
+        console.log(response);
+        this.days = response}
+    );
   }
 
 }

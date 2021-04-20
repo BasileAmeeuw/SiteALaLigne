@@ -1,6 +1,6 @@
 <h1>Calendrier</h1>
-<div *ngFor="let day of days | async">
+<div *ngFor="let day of days">
 
-    {{ day | json }}
+    Le {{ day.date | date:'d MMMM YYYY'}} à {{ day.date | date:'h'}}h {{ day.date | date:'s'}}
 
 </div>

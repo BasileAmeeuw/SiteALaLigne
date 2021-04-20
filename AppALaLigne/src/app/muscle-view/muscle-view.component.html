@@ -1,6 +1,7 @@
 <h1>Liste des muscles</h1>
-<div *ngFor="let muscle of muscles | async">
+<div *ngFor="let muscle of muscles">
 
-    {{ muscle | json }}
+    {{ muscle.nameOfMuscle}}
 
+    <button class="btn btn-info" (click)="detailMuscle(muscle.id)" >Voir le détail suite</button>
 </div>

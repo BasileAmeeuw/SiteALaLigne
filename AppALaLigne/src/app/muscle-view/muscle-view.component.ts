@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { RestService, Muscle } from '../services/rest.service';
+
 
 @Component({
   selector: 'app-muscle-view',
@@ -8,13 +10,24 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 })
 export class MuscleViewComponent implements OnInit {
 
-  muscles: any;
-  constructor(private http: HttpClient) { }
+  muscles: Muscle[] = [];
+  constructor(public rest: RestService, private router:Router) { }
 
 
-  ngOnInit(): void {
-    this.muscles = this.http.get( "http://127.0.0.1:8000/api/muscle");
+  ngOnInit(){
+    this.getMuscles();
   }
 
+  getMuscles(){
+    this.rest.getMuscles().subscribe(
+      (response) => {
+        console.log(response);
+        this.muscles = response}
+    );
+  }
+
+  detailMuscle( id:number){
+    this.router.navigateByUrl('/muscleDetail/' + id);
+  }
 }
 

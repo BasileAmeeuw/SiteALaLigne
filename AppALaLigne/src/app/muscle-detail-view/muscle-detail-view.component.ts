@@ -1,4 +1,6 @@
+import { RestService, Muscle } from '../services/rest.service';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-muscle-detail-view',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MuscleDetailViewComponent implements OnInit {
 
-  constructor() { }
+  muscle:Muscle;
+  constructor(public rest: RestService, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
+    const id = this.route.snapshot.params['id'];
+    this.getMuscle(id);
+  }
+
+  getMuscle(id:string) {
+    this.rest.getMuscle(id).subscribe(
+      (response) => {
+        console.log(response);
+        this.muscle= response}
+    );
   }
 
 }

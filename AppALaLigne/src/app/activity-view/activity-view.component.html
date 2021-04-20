@@ -1,10 +1,11 @@
 <h1>Liste des activités</h1>
-<div *ngFor="let activity of activities | async">
+<div *ngFor="let activity of activities">
 
     <h4>{{ activity.title }}</h4>
+    <h2>{{activity.muscle.nameOfMuscle}}</h2>
     <img src={{activity.image}} />
 
-    <button class="btn btn-info" (click)="getActi(activity.id)" >Voir le détail suite</button>
+    <button class="btn btn-info" (click)="detailActivity(activity.id)" >Voir le détail suite</button>
     
 
 </div>
