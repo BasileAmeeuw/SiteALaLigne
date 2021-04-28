@@ -25,6 +25,10 @@ export class AgendaViewComponent implements OnInit {
     );
   }
 
+  detailActivity( id:string){
+    this.router.navigateByUrl('/activityDetail/' + id);
+  }
+
 }
 
 

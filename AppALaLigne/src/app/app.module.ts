@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms' ;
 
 import {RestService } from './services/rest.service'
 import { LOCALE_ID } from '@angular/core'
@@ -13,6 +14,7 @@ import { ActivityDetailViewComponent } from './activity-detail-view/activity-det
 import { MuscleDetailViewComponent } from './muscle-detail-view/muscle-detail-view.component'
 import localeFr from '@angular/common/locales/fr';
 import { registerLocaleData } from '@angular/common';
+import { ActivityAjoutComponent } from './activity-ajout/activity-ajout.component';
 registerLocaleData(localeFr, 'fr');
 
 const appRoutes: Routes = [
@@ -22,6 +24,7 @@ const appRoutes: Routes = [
   { path: 'agenda', component: AgendaViewComponent },
   { path: 'activityDetail/:id', component: ActivityDetailViewComponent },
   { path: 'muscleDetail/:id', component: MuscleDetailViewComponent },
+  { path: 'activityAjout', component:ActivityAjoutComponent }
 ];
 
 @NgModule({
@@ -31,13 +34,14 @@ const appRoutes: Routes = [
     MuscleViewComponent,
     AgendaViewComponent,
     ActivityDetailViewComponent,
-    MuscleDetailViewComponent
+    MuscleDetailViewComponent,
+    ActivityAjoutComponent
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
-
   ],
   providers: [RestService,
               {provide: LOCALE_ID, useValue: 'fr-FR' },],

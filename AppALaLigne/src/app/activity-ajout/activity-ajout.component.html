@@ -1,0 +1,10 @@
+<div><h1> Création d'une activité </h1>
+
+<input type="text" [(ngModel)] = "activity.title" placeholder="titre"><br>
+<input type="text" [(ngModel)] = "activity.description" placeholder="description"><br>
+<input type="text" [(ngModel)] = "activity.image" placeholder="url de l'image"><br>
+<input type="int" [(ngModel)] = "activity.duration" placeholder="durée"><br>
+<input type="int" [(ngModel)] = "activity.difficult" placeholder="difficulté (1 à 5)"><br>
+<input type="text" [(ngModel)] = "activity.author" placeholder="auteur"><br>
+<input type="text" [(ngModel)] = "activity.material" placeholder="materiel"><br>
+<button (click)="addActivity()">Enregistrer</button></div>

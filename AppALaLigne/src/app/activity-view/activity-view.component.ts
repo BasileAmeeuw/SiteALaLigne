@@ -41,7 +41,12 @@ export class ActivityViewComponent implements OnInit {
   deleteActivity(id:string){
     this.rest.deleteActivity(id).subscribe(
       (response) => {
-        console.log(response)
+        console.log(response.status)
+        if (response.status == 200){
+          this.getActivities();
+        } else {
+          console.log("probleme avec le delete");
+        }
       }
     );
   }

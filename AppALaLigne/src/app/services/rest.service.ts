@@ -4,21 +4,21 @@ import { HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http'
 import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-const backend="http://localhost:8000/api/"
+const backend="http://127.0.0.1:8000/api/"
 
 export interface Activity {
-  id:string;
+  id?:string;
   title:string;
-  description:string;
-  image:string;
-  duration:string;
-  difficult:string;
-  author:string;
-  material:string;
-  createdAt:string;
-  modifiedAt:string;
-  muscle:Muscle;
-  days:Day[];
+  description?:string;
+  image?:string;
+  duration?:number;
+  difficult?:number;
+  author?:string;
+  material?:string;
+  createdAt?:string;
+  modifiedAt?:string;
+  muscle?:Muscle;
+  days?:Day[];
 }
 
 export interface Muscle {
@@ -63,8 +63,8 @@ export class RestService {
     return this.http.get<Muscle>(backend + "muscle/" + id);
   }
 
-  addActivity(): Observable<any> {
-    return ;
+  addActivity(activity:Activity): Observable<any> {
+    return this.http.post(backend + "activity", activity);
   }
 
   addMuscle(): Observable<any> {
@@ -75,24 +75,16 @@ export class RestService {
     return ;
   }
 
-  optionRequete = {
-    headers: new HttpHeaders({ 
-      'Access-Control-Allow-Origin':'*',
-      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, DELETE'
-    })
-  };
 
   deleteActivity(id:string): Observable<any> {
-    return this.http.delete<string>(backend + "activity/" + id, this.optionRequete);
+    return this.http.delete(backend + "activity/" + id);
   }
 
   deleteMuscle(id:string):Observable<any> {
     return this.http.delete(backend + "muscle/" + id);
-
   }
 
   deleteDay(id:string):Observable<any> {
-    return this.http.delete<Object>(backend + "agenda/" + id);
-
+    return this.http.delete(backend + "agenda/" + id);
   }
 }

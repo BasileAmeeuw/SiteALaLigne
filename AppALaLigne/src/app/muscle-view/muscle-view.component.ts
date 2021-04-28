@@ -29,5 +29,22 @@ export class MuscleViewComponent implements OnInit {
   detailMuscle( id:number){
     this.router.navigateByUrl('/muscleDetail/' + id);
   }
+
+  editMuscle(id:string) {
+    
+  }
+
+  deleteMuscle(id:string){
+    this.rest.deleteMuscle(id).subscribe(
+      (response) => {
+        console.log(response.status)
+        if (response.status == 200){
+          this.getMuscles();
+        } else {
+          console.log("probleme avec le delete dans muscle");
+        }
+      }
+    );
+  }
 }
 
