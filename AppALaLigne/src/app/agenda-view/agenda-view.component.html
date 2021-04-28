@@ -1,4 +1,5 @@
 <h1>Calendrier</h1>
+<button class="btn " (click)="addDay()" >Ajouter un jour</button>
 <div *ngFor="let day of days">
 
     Le {{ day.date | date:'d MMMM YYYY'}} à {{ day.date | date:'h'}}h{{ day.date | date:'mm'}}

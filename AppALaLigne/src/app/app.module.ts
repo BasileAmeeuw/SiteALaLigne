@@ -15,6 +15,8 @@ import { MuscleDetailViewComponent } from './muscle-detail-view/muscle-detail-vi
 import localeFr from '@angular/common/locales/fr';
 import { registerLocaleData } from '@angular/common';
 import { ActivityAjoutComponent } from './activity-ajout/activity-ajout.component';
+import { MuscleAjoutComponent } from './muscle-ajout/muscle-ajout.component';
+import { AgendaAjoutComponent } from './agenda-ajout/agenda-ajout.component';
 registerLocaleData(localeFr, 'fr');
 
 const appRoutes: Routes = [
@@ -24,7 +26,13 @@ const appRoutes: Routes = [
   { path: 'agenda', component: AgendaViewComponent },
   { path: 'activityDetail/:id', component: ActivityDetailViewComponent },
   { path: 'muscleDetail/:id', component: MuscleDetailViewComponent },
-  { path: 'activityAjout', component:ActivityAjoutComponent }
+  { path: 'activityAjout', component:ActivityAjoutComponent },
+  { path: 'muscleAjout', component:MuscleAjoutComponent },
+  { path: 'agendaAjout', component:AgendaAjoutComponent },
+  { path: 'activityEdit/:id', component:ActivityAjoutComponent },
+  { path: 'muscleEdit/:id', component:MuscleAjoutComponent },
+  { path: 'agendaEdit/:id', component:AgendaAjoutComponent },
+
 ];
 
 @NgModule({
@@ -35,7 +43,9 @@ const appRoutes: Routes = [
     AgendaViewComponent,
     ActivityDetailViewComponent,
     MuscleDetailViewComponent,
-    ActivityAjoutComponent
+    ActivityAjoutComponent,
+    MuscleAjoutComponent,
+    AgendaAjoutComponent,
   ],
   imports: [
     FormsModule,

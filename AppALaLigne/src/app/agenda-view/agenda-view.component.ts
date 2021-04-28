@@ -25,8 +25,16 @@ export class AgendaViewComponent implements OnInit {
     );
   }
 
+  addDay() {
+    this.router.navigateByUrl('/agendaAjout');
+  }
+
   detailActivity( id:string){
     this.router.navigateByUrl('/activityDetail/' + id);
+  }
+
+  editDay(id:string) {
+    this.router.navigateByUrl('/agendaEdit/' + id);
   }
 
 }

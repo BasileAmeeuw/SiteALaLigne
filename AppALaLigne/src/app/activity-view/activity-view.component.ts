@@ -31,11 +31,11 @@ export class ActivityViewComponent implements OnInit {
   }
 
   addActivity() {
-
+    this.router.navigateByUrl('/activityAjout');
   }
 
   editActivity(id:string){
-
+    this.router.navigateByUrl('/activityEdit/' + id);
   }
 
   deleteActivity(id:string){

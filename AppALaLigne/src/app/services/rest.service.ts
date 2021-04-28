@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 const backend="http://127.0.0.1:8000/api/"
 
 export interface Activity {
-  id?:string;
+  id?:number;
   title:string;
   description?:string;
   image?:string;
@@ -22,17 +22,17 @@ export interface Activity {
 }
 
 export interface Muscle {
-  id:string;
+  id?:number;
   nameOfMuscle:string;
-  ExtraExpl:string;
-  image:string;
-  activities:Activity[];
+  ExtraExpl?:string;
+  image?:string;
+  activities?:Activity[];
 }
 
 export interface Day {
-  id:string;
+  id?:number;
   date:Date;
-  activity:Activity;
+  activity?:Activity;
 }
 @Injectable({
   providedIn: 'root'
@@ -67,12 +67,24 @@ export class RestService {
     return this.http.post(backend + "activity", activity);
   }
 
-  addMuscle(): Observable<any> {
-    return ;
+  addMuscle(muscle:Muscle): Observable<any> {
+    return this.http.post(backend + "muscle", muscle);
   }
 
-  addDay(): Observable<any> {
-    return ;
+  addDay(day:Day): Observable<any> {
+    return this.http.post(backend + "agenda", day);
+  }
+
+  editActivity(activity:Activity, id:string): Observable<any> {
+    return this.http.put(backend + "activity/" + id, activity);
+  }
+
+  editMuscle(muscle:Muscle, id:string): Observable<any> {
+    return this.http.put(backend + "muscle/" + id, muscle);
+  }
+
+  editDay(day:Day, id:string): Observable<any> {
+    return this.http.put(backend + "agenda/" + id, day);
   }
 
 

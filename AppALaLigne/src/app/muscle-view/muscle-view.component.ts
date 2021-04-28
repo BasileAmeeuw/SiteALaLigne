@@ -31,7 +31,11 @@ export class MuscleViewComponent implements OnInit {
   }
 
   editMuscle(id:string) {
-    
+    this.router.navigateByUrl('/muscleEdit/' + id);
+  }
+
+  addMuscle() {
+    this.router.navigateByUrl('/muscleAjout');
   }
 
   deleteMuscle(id:string){
