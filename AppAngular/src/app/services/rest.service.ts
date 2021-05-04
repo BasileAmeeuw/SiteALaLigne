@@ -64,6 +64,8 @@ export class RestService {
   }
 
   addActivity(activity:Activity): Observable<any> {
+    console.log("to add")
+    console.log(activity)
     return this.http.post(backend + "activity", activity);
   }
 

@@ -50,12 +50,13 @@ export class ActivityAjoutComponent implements OnInit {
   }
 
   addActivity() {
-    console.log(this.activity);
-    this.rest.addActivity( this.activity).subscribe(
+    console.log(Number(this.activity.muscle.id));
+    this.activity.muscle.id=Number(this.activity.muscle.id)
+    this.rest.addActivity(this.activity).subscribe(
       (response) => {
         console.log(response);
         if (response.id != null) {
-          this.detailActivity(response.muscle);
+          this.detailActivity(response.id);
         }
       }
     )

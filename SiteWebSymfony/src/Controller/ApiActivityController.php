@@ -56,15 +56,15 @@ class ApiActivityController extends AbstractController
             $activity=$serializer->deserialize($jsonRecu, \App\Entity\Activity::class, 'json');
             $muscle=$activity->getMuscle();
             if ($muscle != null) {
-                $muscleId=$muscle->getId();
-                $existingMuscle=$muscleRepository->findOneBy(["id"=>$muscleId]);
+                $muscleName=$muscle->getNameOfMuscle();
+                $existingMuscle=$muscleRepository->findOneBy(["nameOfMuscle"=>$muscleName]);
                 if ($existingMuscle != null){
                     $activity->setMuscle($existingMuscle);
                 } else{
                     return $this->json([
                         'status' => 401,
                         "message d'erreur" => "Vous n'avez pas rentré un muscle existant dans la DB",
-                        'id'=>$muscleId
+                        'muscle'=>$muscle
                     ]);
                 }
             }

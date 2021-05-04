@@ -47,14 +47,15 @@ class ApiAgendaController extends AbstractController
             $day=$serializer->deserialize($jsonRecu, \App\Entity\Day::class, 'json');
             $activity=$day->getActivity();
             if ($activity != null) {
-                $activityId=$activity->getId();
-                $existingActivity=$activityRepository->findOneBy(["id"=>$activityId]);
+                $activityName=$activity->getTitle();
+                $existingActivity=$activityRepository->findOneBy(["title"=>$activityName]);
                 if ($existingActivity != null){
                     $day->setActivity($existingActivity);
                 } else{
                     return $this->json([
                         'status' => 401,
-                        "message d'erreur" => "Vous n'avez pas rentré une activité existante dans la DB"
+                        "message d'erreur" => "Vous n'avez pas rentré une activité existante dans la DB",
+                        'activity' => $activity
                     ]);
                 }
             }

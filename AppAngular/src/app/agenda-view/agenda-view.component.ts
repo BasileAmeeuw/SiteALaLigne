@@ -33,8 +33,17 @@ export class AgendaViewComponent implements OnInit {
     this.router.navigateByUrl('/activityDetail/' + id);
   }
 
-  editDay(id:string) {
-    this.router.navigateByUrl('/agendaEdit/' + id);
+  deleteDay(id:string) {
+    this.rest.deleteDay(id).subscribe(
+      (response) => {
+        console.log(response.status)
+        if (response.status == 200){
+          this.getDays();
+        } else {
+          console.log("probleme avec le delete");
+        }
+      }
+    );
   }
 
 }

@@ -1,6 +1,6 @@
 <div><h1> Création d'un moment </h1>
 
-    <input type="date" [(ngModel)] = "day.date" ><br>
-<select></select>
+    <input type="date" [(ngModel)] = "day.date"  ><br>
+    <select [(ngModel)] = "day.activity" ><option selcted=true value=null>Pas de catégorie particulière</option> <option  *ngFor="let activity of activities" value={{activity}}>{{activity.title}}</option> </select>
     
     <button (click)="addDay()">Enregistrer</button></div>
