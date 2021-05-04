@@ -1,0 +1,7 @@
+{
+  "name": "AppMobileIonic",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
