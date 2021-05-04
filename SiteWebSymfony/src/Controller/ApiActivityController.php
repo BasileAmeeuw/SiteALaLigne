@@ -142,14 +142,15 @@ class ApiActivityController extends AbstractController
             } 
             if ($activityJSON->getMuscle() != null){
                 $muscle=$activityJSON->getMuscle();
-                $muscleId=$muscle->getDifficult();
-                $existingMuscle=$muscleRepository->findOneBy(["id"=>$muscleId]);
+                $muscleName=$muscle->getNameOfMuscle();
+                $existingMuscle=$muscleRepository->findOneBy(["nameOfMuscle"=>$muscleName]);
                 if ($existingMuscle != null){
                     $activity->setMuscle($existingMuscle);
                 } else{
                     return $this->json([
                         'status' => 401,
-                        "message d'erreur" => "Vous n'avez pas rentré un muscle existant dans la DB"
+                        "message d'erreur" => "Vous n'avez pas rentré un muscle existant dans la DB",
+                        'activity'=>$activity
                     ]);
                 }
                 

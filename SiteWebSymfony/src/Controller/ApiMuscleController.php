@@ -104,8 +104,8 @@ class ApiMuscleController extends AbstractController
                 $muscle->setImage($muscleJSON->getImage());
             } 
             foreach ($muscleJSON->getActivities() as $Act){
-                $activityId=$Act->getId();
-                $existingActivity=$activityRepository->findOneBy(["id"=>$activityId]);
+                $activityTitle=$Act->getTitle();
+                $existingActivity=$activityRepository->findOneBy(["title"=>$activityTitle]);
                 if ($existingActivity != null) {
                     $muscle->addActivity($existingActivity);
                 } else {

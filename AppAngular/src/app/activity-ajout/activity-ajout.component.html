@@ -7,5 +7,5 @@
 <input type="int" [(ngModel)] = "activity.difficult" placeholder="difficulté (1 à 5)"><br>
 <input type="text" [(ngModel)] = "activity.author" placeholder="auteur"><br>
 <input type="text" [(ngModel)] = "activity.material" placeholder="materiel"><br>
-<select [(ngModel)] = "activity.muscle.id" > <option  *ngFor="let muscle of muscles" value={{muscle.id}}>{{muscle.nameOfMuscle}}</option> </select>
+<select [(ngModel)] = "activity.muscle.nameOfMuscle" > <option  *ngFor="let muscle of muscles" value={{muscle.nameOfMuscle}}>{{muscle.nameOfMuscle}}</option> </select>
 <button (click)="addActivity()">Enregistrer</button></div>

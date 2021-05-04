@@ -113,8 +113,8 @@ class ApiAgendaController extends AbstractController
             } 
             if ($dayJSON->getActivity() != null){
                 $activity=$day->getActivity();
-                $activityId=$activity->getId();
-                $existingActivity=$activityRepository->findOneBy(["id"=>$activityId]);
+                $activityName=$activity->getTitle();
+                $existingActivity=$activityRepository->findOneBy(["title"=>$activityName]);
                 if ($existingActivity != null){
                     $day->setActivity($existingActivity);
                 } else{

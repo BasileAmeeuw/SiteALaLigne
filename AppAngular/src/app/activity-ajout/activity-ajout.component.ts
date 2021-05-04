@@ -20,7 +20,10 @@ export class ActivityAjoutComponent implements OnInit {
     "difficult":0,
     "author":"",
     "material":"",
-    "muscle":null
+    "muscle":{
+      "nameOfMuscle":"",
+      "id":0
+    }
   }
 
   constructor(public rest: RestService, private route:ActivatedRoute, private router:Router) { 
@@ -32,6 +35,7 @@ export class ActivityAjoutComponent implements OnInit {
     const id = this.route.snapshot.params['id'];
     if (id!=null){
       this.getActivity(id)
+      console.log("Edit")
     } else {
       console.log("Add")
     }
@@ -50,16 +54,26 @@ export class ActivityAjoutComponent implements OnInit {
   }
 
   addActivity() {
-    console.log(Number(this.activity.muscle.id));
-    this.activity.muscle.id=Number(this.activity.muscle.id)
-    this.rest.addActivity(this.activity).subscribe(
-      (response) => {
-        console.log(response);
-        if (response.id != null) {
-          this.detailActivity(response.id);
+    const id = this.route.snapshot.params['id'];
+    console.log(this.activity);
+    if (id==null){
+      this.rest.addActivity(this.activity).subscribe(
+        (response) => {
+          console.log(response);
+          if (response.id != null) {
+            this.detailActivity(response.id);
+          }
         }
-      }
+    )}else {
+      this.rest.editActivity(this.activity, id).subscribe(
+        (response) => {
+          console.log(response);
+          if (response.id != null) {
+            this.detailActivity(response.id);
+          }
+        }
     )
+    }
   }
 
 
