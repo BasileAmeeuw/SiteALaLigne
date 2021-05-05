@@ -17,7 +17,7 @@ export interface Activity {
   material?:string;
   createdAt?:string;
   modifiedAt?:string;
-  muscle?:Muscle;
+  muscle?:Muscle|null;
   days?:Day[];
 }
 

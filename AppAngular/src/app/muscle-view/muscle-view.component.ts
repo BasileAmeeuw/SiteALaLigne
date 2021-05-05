@@ -26,6 +26,7 @@ export class MuscleViewComponent implements OnInit {
     );
   }
 
+
   detailMuscle( id:number){
     this.router.navigateByUrl('/muscleDetail/' + id);
   }
@@ -49,6 +50,17 @@ export class MuscleViewComponent implements OnInit {
         }
       }
     );
+  }
+
+  getLength(array:any[]){
+    return array.length;
+  }
+
+  getShort(str:string){
+    if (str.length>140){
+      str=str.slice(0,140)+"..."
+    } 
+    return str;
   }
 }
 

@@ -51,5 +51,11 @@ export class ActivityViewComponent implements OnInit {
     );
   }
 
+  getShort(str:string){
+    if (str.length>300){
+      str=str.slice(0,300)+"..."
+    } 
+    return str;
+  }
 
 }

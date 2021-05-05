@@ -12,7 +12,10 @@ export class AgendaAjoutComponent implements OnInit {
   activities: Activity[] = []
   date: Date = new Date(2018, 0O5, 0O5, 17, 23, 42, 11); 
   day:Day = {
-    "date":this.date
+    "date":this.date,
+    "activity":{
+      "title":""
+    }
   }
   constructor(public rest: RestService, private route:ActivatedRoute, private router:Router) { 
 

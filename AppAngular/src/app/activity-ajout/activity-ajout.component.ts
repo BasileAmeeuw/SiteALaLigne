@@ -60,6 +60,9 @@ export class ActivityAjoutComponent implements OnInit {
   addActivity() {
     const id = this.route.snapshot.params['id'];
     console.log(this.activity);
+    if (this.activity.muscle.nameOfMuscle==""){
+      this.activity.muscle=null
+    }
     if (id==null){
       this.rest.addActivity(this.activity).subscribe(
         (response) => {

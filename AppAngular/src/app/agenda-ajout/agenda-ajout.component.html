@@ -7,8 +7,8 @@
             
           </div>
           <div class="modal-body">
-            <p><input type="date" [(ngModel)] = "day.date"  ><br>
-                <select [(ngModel)] = "day.activity" ><option selcted=true value=null>Pas de catégorie particulière</option> <option  *ngFor="let activity of activities" value={{activity}}>{{activity.title}}</option> </select>
+            <p>Date: <input type="date" [(ngModel)] = "day.date"  ><br>
+                Activité: <select [(ngModel)] = "day.activity.title" ><option selcted=true value=null>Pas d'activité particulière</option> <option  *ngFor="let activity of activities" value={{activity.title}}>{{activity.title}}</option> </select>
                 </p>
           </div>
           <div class="modal-footer">
