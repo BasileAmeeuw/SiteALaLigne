@@ -41,6 +41,17 @@ export class MuscleAjoutComponent implements OnInit {
   }
 
   addMuscle() {
+    const id = this.route.snapshot.params['id'];
+    if (id!=null){
+      this.rest.editMuscle( this.muscle, id).subscribe(
+        (response) => {
+          console.log(response);
+          if (response.id != null) {
+            this.detailMuscle(response.id);
+          }
+        }
+      )
+    } else {
     this.rest.addMuscle( this.muscle).subscribe(
       (response) => {
         console.log(response);
@@ -48,7 +59,10 @@ export class MuscleAjoutComponent implements OnInit {
           this.detailMuscle(response.id);
         }
       }
-    )
+    )}
   }
 
+  back(){
+    this.router.navigateByUrl('/muscle');
+  }
 }

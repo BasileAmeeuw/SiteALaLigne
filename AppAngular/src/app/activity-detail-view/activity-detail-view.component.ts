@@ -1,6 +1,6 @@
 import { RestService, Activity } from '../services/rest.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-activity-detail-view',
@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ActivityDetailViewComponent implements OnInit {
 
   activity:Activity;
-  constructor(public rest: RestService, private route:ActivatedRoute) { }
+  constructor(public rest: RestService, private router:Router, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['id'];
@@ -23,6 +23,23 @@ export class ActivityDetailViewComponent implements OnInit {
         console.log(response);
         this.activity = response}
     );
+  }
+
+  deleteActivity(id:number){
+    this.rest.deleteActivity(String(id)).subscribe(
+      (response) => {
+        console.log(response.status)
+        if (response.status == 200){
+          this.router.navigateByUrl('/activity');
+        } else {
+          console.log("probleme avec le delete");
+        }
+      }
+    );
+  }
+
+  editActivity(id:number){
+    this.router.navigateByUrl('/activityEdit/' + id);
   }
 
 }

@@ -53,6 +53,10 @@ export class ActivityAjoutComponent implements OnInit {
     this.router.navigateByUrl('/activityDetail/' + id);
   }
 
+  back(){
+    this.router.navigateByUrl('/activity');
+  }
+
   addActivity() {
     const id = this.route.snapshot.params['id'];
     console.log(this.activity);

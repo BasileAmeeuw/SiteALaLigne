@@ -1,4 +1,20 @@
 <h1> Détail de l'activité</h1>
-<div  >
-    {{ activity.title }}
-</div>
+<div class="jumbotron">
+    <h1 class="display-3">{{activity.title}}</h1>
+    <img src="{{activity.image}}" alt="{{activity.title}}">
+    <p class="lead">{{activity.description}}</p>
+    <hr class="my-4">
+    <h4>Muscle</h4>
+    <h3>{{activity.muscle.nameOfMuscle}}<img src="{{activity.muscle.image}}" height="75px"></h3>
+    <a href='muscleDetail/{{activity.muscle.id}}'>Pour plus de detail cliquez ici</a>
+    <hr class="my-10">
+    <h4>Detail plus pratique</h4>
+    <p>Durée: {{activity.duration}} minutes, difficulté: {{activity.difficult}}/5</p>
+    <p>auteur: {{activity.author}} (créé le {{activity.createdAt}})</p>
+    <p *ngIf activity.modifiedAt!=null>EDIT: {{activity.modifiedAt}}</p>
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="activity" role="button">Revenir en arrière</a> &nbsp;
+      <button class="btn btn-danger btn-lg" (click)="deleteActivity(activity.id)">supprimer cette activité</button> &nbsp;
+      <button class="btn btn-success btn-lg" (click)="editActivity(activity.id)">Editer</button>
+    </p>
+  </div>

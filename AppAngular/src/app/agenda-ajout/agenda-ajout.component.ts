@@ -38,6 +38,10 @@ export class AgendaAjoutComponent implements OnInit {
     )
   }
 
+  back() {
+    this.router.navigateByUrl('/agenda');
+  }
+
   getActivities(){
     this.rest.getActivities().subscribe(
       (response) => {

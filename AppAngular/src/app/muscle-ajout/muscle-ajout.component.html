@@ -1,7 +1,22 @@
-<div><h1> Création d'un muscle </h1>
+<h1>Création d'un muscle</h1>
 
-    <input type="text" [(ngModel)] = "muscle.nameOfMuscle" placeholder="nom du muscle"><br>
-    <input type="text" [(ngModel)] = "muscle.ExtraExpl" placeholder="explication supplémentaire"><br>
-    <input type="url" [(ngModel)] = "muscle.image" placeholder="image (url)"><br>
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Créez votre muscle </h5>
+        
+      </div>
+      <div class="modal-body">
+        <p><input type="text" [(ngModel)] = "muscle.nameOfMuscle" placeholder="nom du muscle"><br>
+            <input type="text" [(ngModel)] = "muscle.ExtraExpl" placeholder="explication supplémentaire"><br>
+            <input type="url" [(ngModel)] = "muscle.image" placeholder="image (url)"><br>
+          </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="addMuscle()">Enregistrer</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="back()">Retour</button>
+      </div>
+    </div>
+  </div>
 
-    <button (click)="addMuscle()">Enregistrer</button></div>
+

@@ -1,6 +1,6 @@
 import { RestService, Muscle } from '../services/rest.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-muscle-detail-view',
@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 export class MuscleDetailViewComponent implements OnInit {
 
   muscle:Muscle;
-  constructor(public rest: RestService, private route:ActivatedRoute) { }
+  constructor(public rest: RestService, private router:Router, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['id'];
@@ -22,6 +22,23 @@ export class MuscleDetailViewComponent implements OnInit {
       (response) => {
         console.log(response);
         this.muscle= response}
+    );
+  }
+
+  editMuscle(id:number) {
+    this.router.navigateByUrl('/muscleEdit/' + id);
+  }
+
+  deleteMuscle(id:number){
+    this.rest.deleteMuscle(String(id)).subscribe(
+      (response) => {
+        console.log(response.status)
+        if (response.status == 200){
+          this.router.navigateByUrl('/muscle');
+        } else {
+          console.log("probleme avec le delete dans muscle");
+        }
+      }
     );
   }
 

@@ -1,3 +1,19 @@
-<p>muscle-detail-view works!</p>
-
-<h1>{{muscle.nameOfMuscle}}</h1>
+<h1> Détail du muscle</h1>
+<div class="jumbotron">
+    <h1 class="display-3">{{muscle.nameOfMuscle}}</h1>
+    <img src="{{muscle.image}}" alt="{{muscle.nameOfMuscle}}">
+    <p class="lead">{{muscle.ExtraExpl}}</p>
+    <hr class="my-10">
+    <h4>Activités</h4>
+    <li>
+      <ul *ngFor="let activity of muscle.activities" >
+        {{activity.title}}
+      </ul>
+    </li>
+    
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="muscle" role="button">Revenir en arrière</a> &nbsp;
+      <button class="btn btn-danger btn-lg" (click)="deleteMuscle(muscle.id)">supprimer ce muscle</button> &nbsp;
+      <button class="btn btn-success btn-lg" (click)="editMuscle(muscle.id)">Editer</button>
+    </p>
+  </div>

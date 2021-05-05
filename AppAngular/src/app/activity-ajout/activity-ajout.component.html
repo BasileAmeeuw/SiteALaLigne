@@ -1,11 +1,26 @@
-<div><h1> Création d'une activité </h1>
 
-<input type="text" [(ngModel)] = "activity.title" placeholder="titre"><br>
-<input type="text" [(ngModel)] = "activity.description" placeholder="description"><br>
-<input type="url" [(ngModel)] = "activity.image" placeholder="url de l'image"><br>
-<input type="int" [(ngModel)] = "activity.duration" placeholder="durée"><br>
-<input type="int" [(ngModel)] = "activity.difficult" placeholder="difficulté (1 à 5)"><br>
-<input type="text" [(ngModel)] = "activity.author" placeholder="auteur"><br>
-<input type="text" [(ngModel)] = "activity.material" placeholder="materiel"><br>
-<select [(ngModel)] = "activity.muscle.nameOfMuscle" > <option  *ngFor="let muscle of muscles" value={{muscle.nameOfMuscle}}>{{muscle.nameOfMuscle}}</option> </select>
-<button (click)="addActivity()">Enregistrer</button></div>
+<h1>Création d'une activité</h1>
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Créez d'une activité </h5>
+        </div>
+        <div class="modal-body">
+          <p><input type="text" [(ngModel)] = "activity.title" placeholder="titre"><br>
+            <input type="text" [(ngModel)] = "activity.description" placeholder="description"><br>
+            <input type="url" [(ngModel)] = "activity.image" placeholder="url de l'image"><br>
+            <input type="int" [(ngModel)] = "activity.duration" placeholder="durée"><br>
+            <input type="int" [(ngModel)] = "activity.difficult" placeholder="difficulté (1 à 5)"><br>
+            <input type="text" [(ngModel)] = "activity.author" placeholder="auteur"><br>
+            <input type="text" [(ngModel)] = "activity.material" placeholder="materiel"><br>
+            <select [(ngModel)] = "activity.muscle.nameOfMuscle" > <option  *ngFor="let muscle of muscles" value={{muscle.nameOfMuscle}}>{{muscle.nameOfMuscle}}</option> </select></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="addActivity()">Enregistrer</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="back()">Retour</button>
+        </div>
+      </div>
+    </div>
+
+
+

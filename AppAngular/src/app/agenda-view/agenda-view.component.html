@@ -1,10 +1,16 @@
-<h1>Calendrier</h1>
-<button class="btn btn-primary" (click)="addDay()" >Ajouter un jour</button>
-<div *ngFor="let day of days">
+<h1>Calendrier &nbsp;&nbsp; <button class="btn btn-primary" (click)="addDay()" >Ajouter un jour</button></h1>
 
-    Le {{ day.date | date:'d MMMM YYYY'}} à {{ day.date | date:'h'}}h{{ day.date | date:'mm'}}
-    <h2 *ngIf="day.activity!=null">{{day.activity.title}} <button class="btn btn-info" (click)="detailActivity(day.activity.id)" >Voir le détail suite</button> </h2>
-    <h2 *ngIf="day.activity==null">Pas d'activité pour ce jour</h2>
-    <button class="btn btn-info" (click)="detailActivity(day.activity.id)" >Voir le détail suite</button>
-    <button class="btn btn-warning" (click)="deleteDay(day.id)" >Supprimer</button>
+<div *ngFor="let day of days" class="row">
+    <div class="card border-primary mb-3 " style="max-width: 35rem;">
+        <h3 class="card-header">Le {{ day.date | date:'d MMMM YYYY'}} à {{ day.date | date:'h'}}h{{ day.date | date:'mm'}}</h3>
+        <div class="card-body">
+            <img src="{{day.activity.image}}" alt="{{day.activity.title}}">
+          <h4 class="card-title" *ngIf="day.activity!=null">{{day.activity.title}}</h4>
+          <h4 class="card-title" *ngIf="day.activity==null">Pas d'activité pour ce jour </h4>
+          <p class="card-text">
+              <button class="btn btn-info" (click)="detailActivity(day.activity.id)" >Voir le détail suite</button>    
+            &nbsp;<button class="btn btn-warning" (click)="deleteDay(day.id)" >Supprimer ce jour</button></p>
+        </div>
+      </div>
+    
 </div>
