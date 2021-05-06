@@ -11,9 +11,8 @@
                 <img src="{{activity.image}}" height="180px"/>
               
                 <h4>{{getShort(activity.description)}}</h4>
-        
-                <button class="btn btn-info" (click)="detailActivity(activity.id)" >Voir le détail suite</button>
-                <button class="btn btn-success" (click)="editActivity(activity.id)" >Editer</button>
-                <button class="btn btn-warning" (click)="deleteActivity(activity.id)" >Supprimer</button>
+                <button class="btn btn-info btn-lg" (click)="detailActivity(activity.id)" >Voir le détail de l'activité</button>&nbsp;
+                <button class="btn btn-success btn-lg" (click)="editActivity(activity.id)" >Editer</button>&nbsp;
+                <button class="btn btn-danger btn-lg" (click)="deleteActivity(activity.id)" >Supprimer</button>
         </li>
     </ul>

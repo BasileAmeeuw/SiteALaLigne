@@ -14,7 +14,8 @@
     <p *ngIf activity.modifiedAt!=null>EDIT: {{activity.modifiedAt}}</p>
     <p class="lead">
       <a class="btn btn-primary btn-lg" href="activity" role="button">Revenir en arrière</a> &nbsp;
-      <button class="btn btn-danger btn-lg" (click)="deleteActivity(activity.id)">supprimer cette activité</button> &nbsp;
-      <button class="btn btn-success btn-lg" (click)="editActivity(activity.id)">Editer</button>
+      <button class="btn btn-success btn-lg" (click)="editActivity(activity.id)">Editer</button> &nbsp;
+      <button class="btn btn-danger btn-lg" (click)="deleteActivity(activity.id)">supprimer cette activité</button>
+      
     </p>
   </div>

@@ -3,8 +3,8 @@
 
 <ul class="list-group">
   <li *ngFor="let day of days" class="list-group-item d-flex justify-content-between align-items-center">
-              <h2>Le {{ day.date | date:'d MMMM YYYY'}}  &nbsp;&nbsp; <small>{{day.activity.title}}</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-info" (click)="detailActivity(day.activity.id)" >Voir le détail suite</button>    
-                &nbsp;<button class="btn btn-warning" (click)="deleteDay(day.id)" >Supprimer ce jour</button></h2> 
-                <h2>à {{ day.date | date:'h'}}h{{ day.date | date:'mm'}}</h2>
+              <h2>Le {{ day.date | date:'d MMMM YYYY'}}  &nbsp;&nbsp; <a href="/activityDetail/{{day.activity.id}}"><small *ngIf="day.activity!=null">{{day.activity.title}}</small><small *ngIf="day.activity==null">Pas d'activité</small></a></h2> 
+                <h2>à {{ day.date | date:'h'}}h{{ day.date | date:'mm'}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
+                &nbsp;<button class="btn btn-danger" (click)="deleteDay(day.id)" >Supprimer ce moment</button></h2>
       </li>
   </ul>
