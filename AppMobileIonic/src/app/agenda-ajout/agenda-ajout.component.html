@@ -1,3 +1,37 @@
-<p>
-  agenda-ajout works!
-</p>
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Agenda
+    </ion-title>
+    <ion-button slot="start">
+      <ion-menu-button menu="main-menu">
+      </ion-menu-button>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <h2>Ajouter un moment</h2>
+  <div>
+    <ion-label>Date:
+      <ion-input type="date" [(ngModel)]="day.date">
+
+      </ion-input>
+    </ion-label><br>Activité:
+    <ion-select placeholder="choisir une activité" [(ngModel)] = "day.activity.title">
+      <ion-select-option  *ngFor="let activity of activities"  value={{activity.title}}>{{activity.title}}</ion-select-option>
+    </ion-select>
+
+    <ion-button (click)="addDay()">
+      <ion-icon name="checkmark-outline">
+
+      </ion-icon>
+      Enregistrer
+    </ion-button>
+    <ion-button (click)="back()">
+      <ion-icon name="arrow-undo-outline">
+
+      </ion-icon>
+      Retour
+    </ion-button>
+  </div>
+</ion-content>

@@ -1,3 +1,66 @@
-<p>
-  activity-ajout works!
-</p>
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Activités
+    </ion-title>
+    <ion-button slot="start">
+      <ion-menu-button menu="main-menu">
+      </ion-menu-button>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <h2>Ajouter une activités</h2>
+  <div>
+    <ion-label>Nom de l'activité:
+      <ion-input type="text" [(ngModel)]="activity.title" placeholder="titre de l'activité">
+
+      </ion-input>
+    </ion-label><br>
+    <ion-label>Description:
+      <ion-input type="textArea" [(ngModel)]="activity.description" placeholder="description de l'activité">
+
+      </ion-input>
+    </ion-label><br>
+    <ion-label>image (url):
+      <ion-input type="text" [(ngModel)]="activity.image" placeholder="url de l'image">
+
+      </ion-input>
+    </ion-label><br>
+    <ion-label>Difficulté (/5):
+      <ion-input type="number" [(ngModel)]="activity.difficult" placeholder="difficulté sur 5">
+
+      </ion-input>
+    </ion-label><br>
+    <ion-label>Durée (en minutes):
+      <ion-input type="number" [(ngModel)]="activity.duration" placeholder="durée en minutes">
+
+      </ion-input>
+    </ion-label><br>
+    <ion-label>auteur:
+      <ion-input type="text" [(ngModel)]="activity.author" placeholder="auteur">
+
+      </ion-input>
+    </ion-label><br>
+    <ion-label>Matériel:
+      <ion-input type="text" [(ngModel)]="activity.material" placeholder="matériel">
+
+      </ion-input>
+    </ion-label><br>Muscle:
+    <ion-select placeholder="choisir un muscle" [(ngModel)] = "activity.muscle.nameOfMuscle">
+      <ion-select-option  *ngFor="let muscle of muscles"  value={{muscle.nameOfMuscle}}>{{muscle.nameOfMuscle}}</ion-select-option>
+    </ion-select>
+    <ion-button (click)="addActivity()">
+      <ion-icon name="checkmark-outline">
+
+      </ion-icon>
+      Enregistrer
+    </ion-button>
+    <ion-button (click)="back()">
+      <ion-icon name="arrow-undo-outline">
+
+      </ion-icon>
+      Retour
+    </ion-button>
+  </div>
+</ion-content>

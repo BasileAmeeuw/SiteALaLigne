@@ -1,3 +1,36 @@
-<p>
-  agenda works!
-</p>
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Agenda
+    </ion-title>
+    <ion-button slot="start">
+      <ion-menu-button menu="main-menu">
+
+      </ion-menu-button>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-button (click)="addDay()">
+    <ion-icon name="add-circle-outline" slot="start">
+    </ion-icon>
+    <ion-label>Ajouter un moment</ion-label>
+  </ion-button>
+  <ion-list>
+    <ion-item *ngFor="let day of days; let i=index">
+      <ion-label (click)="detailDay(day)">
+        {{ day.date | date:'d MMMM YYYY'}} 
+
+        <ion-card *ngIf="day.id==id">
+          <ion-row >Heure: {{ day.date | date:'H'}}h{{ day.date | date:'m'}} </ion-row>
+          <ion-row >Activité: {{day.activity.title}}</ion-row>
+          <ion-button (click)="detailActivity(day.activity.id)">Detail de l'activité</ion-button>
+          <ion-button (click)="deleteDay(day.id)">Supprimer le moment</ion-button>
+        </ion-card>
+      </ion-label>
+    </ion-item>
+    
+    
+  </ion-list>
+  
+</ion-content>

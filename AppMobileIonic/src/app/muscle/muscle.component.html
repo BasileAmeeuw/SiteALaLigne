@@ -1,3 +1,39 @@
-<p>
-  muscle works!
-</p>
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Muscle
+    </ion-title>
+    <ion-button slot="start">
+      <ion-menu-button menu="main-menu">
+
+      </ion-menu-button>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-button (click)="addMuscle()">
+    <ion-icon name="add-circle-outline" slot="start">
+    </ion-icon>
+    <ion-label>Ajouter un muscle</ion-label>
+  </ion-button>
+  <ion-list>
+    <ion-item *ngFor="let muscle of muscles; let i=index">
+      <ion-label (click)="detailMuscle(muscle)">
+        {{muscle.nameOfMuscle}}
+
+        <ion-card *ngIf="muscle.id==id">
+          <ion-row *ngIf='muscle.ExtraExpl!=""'>Explication: {{getShort(muscle.ExtraExpl)}}</ion-row>
+          <ion-row *ngIf='muscle.ExtraExpl==""'>Explciation: Aucune explication</ion-row>
+          <ion-row> Nombre d'activités: {{getLength(muscle.activities)}}</ion-row>
+          <ion-button (click)="show(muscle.id)">Detail</ion-button>
+          <ion-button (click)="editMuscle(muscle.id)">Editer</ion-button>
+          <ion-button (click)="deleteMuscle(muscle.id)">Supprimer</ion-button>
+        </ion-card>
+      </ion-label>
+    </ion-item>
+    
+    
+  </ion-list>
+  
+</ion-content>
+

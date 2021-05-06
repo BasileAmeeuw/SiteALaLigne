@@ -1,3 +1,40 @@
-<p>
-  activity works!
-</p>
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Activités
+    </ion-title>
+    <ion-button slot="start">
+      <ion-menu-button menu="main-menu">
+
+      </ion-menu-button>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-button (click)="addActivity()">
+    <ion-icon name="add-circle-outline" slot="start">
+    </ion-icon>
+    <ion-label>Ajouter une activité</ion-label>
+  </ion-button>
+  <ion-list>
+    <ion-item *ngFor="let activity of activities; let i=index">
+      <ion-label (click)="detailActivity(activity)">
+        {{activity.title}}
+
+        <ion-card *ngIf="activity.id==id">
+          <ion-row *ngIf='activity.description!=""'>Description: {{getShort(activity.description)}}</ion-row>
+          <ion-row *ngIf='activity.description==""'>Description: Aucune description</ion-row>
+          <ion-row> Durée: {{activity.duration}} minutes</ion-row>
+          <ion-row> Auteur: {{activity.author}}</ion-row>
+          <ion-button (click)="show(activity.id)">Detail</ion-button>
+          <ion-button (click)="editActivity(activity.id)">Editer</ion-button>
+          <ion-button (click)="deleteActivity(activity.id)">Supprimer</ion-button>
+        </ion-card>
+      </ion-label>
+    </ion-item>
+    
+    
+  </ion-list>
+  
+</ion-content>
+

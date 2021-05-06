@@ -1,3 +1,22 @@
-<p>
-  activity-detail works!
-</p>
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      {{activity.title}}
+    </ion-title>
+    <ion-button slot="start">
+      <ion-menu-button menu="main-menu">
+      </ion-menu-button>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-button (click)="back()">Retour</ion-button>
+  <ion-button (click)="editActivity()">Editer</ion-button>
+  <ion-button (click)="deleteActivity()">Supprimer</ion-button><br>
+  <h2><strong>Muscle travaillé: </strong><a href="muscleDetail/{{activity.muscle.id}}">{{activity.muscle.nameOfMuscle}}</a></h2>
+  <div><ion-img src="{{activity.image}}" width='70%'></ion-img><h1>Description:</h1> {{activity.description}}<br><br>
+  <strong>Matériel: </strong>{{activity.material}}<br><br>
+  <strong>Durée: </strong>{{activity.duration}}   <strong>Difficulté: </strong>{{activity.difficult}}<br>
+  Auteur: {{activity.author}}
+</div>
+</ion-content>

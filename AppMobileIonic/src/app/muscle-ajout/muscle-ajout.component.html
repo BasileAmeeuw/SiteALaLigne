@@ -1,3 +1,44 @@
-<p>
-  muscle-ajout works!
-</p>
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Muscle
+    </ion-title>
+    <ion-button slot="start">
+      <ion-menu-button menu="main-menu">
+      </ion-menu-button>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <h2>Ajouter un muscle</h2>
+  <div>
+    <ion-label>Nom de l'activité:
+      <ion-input type="text" [(ngModel)]="muscle.nameOfMuscle" placeholder="nom du muscle">
+
+      </ion-input>
+    </ion-label><br>
+    <ion-label>Description:
+      <ion-input type="textArea" [(ngModel)]="muscle.ExtraExpl" placeholder="explication sur le muscle">
+
+      </ion-input>
+    </ion-label><br>
+    <ion-label>image (url):
+      <ion-input type="text" [(ngModel)]="muscle.image" placeholder="url de l'image">
+
+      </ion-input>
+    </ion-label><br>
+    
+    <ion-button (click)="addMuscle()">
+      <ion-icon name="checkmark-outline">
+
+      </ion-icon>
+      Enregistrer
+    </ion-button>
+    <ion-button (click)="back()">
+      <ion-icon name="arrow-undo-outline">
+
+      </ion-icon>
+      Retour
+    </ion-button>
+  </div>
+</ion-content>

@@ -1,20 +1,30 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Menu
     </ion-title>
+    <ion-button slot="start">
+      <ion-menu-button menu="main-menu">
+
+      </ion-menu-button>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  
 
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <strong>Bienvenue sur l'ALLI, l'application A La LIgne</strong><br>
+    Que voulez vous visitez?
+    <p><ion-button routerLink="/activity">
+      <ion-icon name="pulse-outline" slot="start"></ion-icon>
+      Activité</ion-button>
+      <ion-button routerLink="/muscle">
+        <ion-icon name="man-outline" slot="start"></ion-icon>
+        Muscle</ion-button>
+      <ion-button routerLink="/agenda">
+        <ion-icon name="calendar-outline" slot="start"></ion-icon>
+        Agenda</ion-button></p>
   </div>
 </ion-content>
