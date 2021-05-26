@@ -4,4 +4,4 @@
 
 ## Application web angular (SFA)
 
-## Application hybride Ionic
+## Application hybride Ionic (Appication mobile)
